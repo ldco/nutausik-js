@@ -1,0 +1,534 @@
+export const SCHEMA_VERSION = 37
+
+export const SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS meta (
+    key TEXT PRIMARY KEY, value TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS epics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT UNIQUE NOT NULL CHECK(length(slug) <= 64),
+    title TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active'
+        CHECK(status IN ('active', 'done', 'archived')),
+    description TEXT,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS stories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    epic_id INTEGER NOT NULL REFERENCES epics(id) ON DELETE CASCADE,
+    slug TEXT UNIQUE NOT NULL CHECK(length(slug) <= 64),
+    title TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'open'
+        CHECK(status IN ('open', 'active', 'done')),
+    description TEXT,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    story_id INTEGER REFERENCES stories(id) ON DELETE CASCADE,
+    slug TEXT UNIQUE NOT NULL CHECK(length(slug) <= 64),
+    title TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'planning'
+        CHECK(status IN ('planning', 'active', 'blocked', 'review', 'done')),
+    stack TEXT,
+    complexity TEXT CHECK(complexity IS NULL OR complexity IN ('simple', 'medium', 'complex')),
+    role TEXT,
+    score INTEGER,
+    goal TEXT, plan TEXT, notes TEXT,
+    acceptance_criteria TEXT, scope TEXT, scope_exclude TEXT, rollback_plan TEXT,
+    scope_paths TEXT, scope_tools TEXT,
+    risk_score REAL, risk_json TEXT,
+    started_model_id TEXT, started_model_version TEXT,
+    done_model_id TEXT, done_model_version TEXT,
+    model_mismatch INTEGER NOT NULL DEFAULT 0,
+    relevant_files TEXT,
+    started_at TEXT, completed_at TEXT, blocked_at TEXT,
+    archived_at TEXT,
+    attempts INTEGER DEFAULT 0,
+    claimed_by TEXT,
+    defect_of TEXT REFERENCES tasks(slug) ON DELETE SET NULL,
+    call_budget INTEGER,
+    call_actual INTEGER,
+    cost_budget_usd REAL,
+    cost_actual_usd REAL,
+    token_budget INTEGER,
+    tokens_actual INTEGER,
+    tier TEXT CHECK(tier IS NULL OR tier IN
+        ('trivial','light','moderate','substantial','deep')),
+    created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sessions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    started_at TEXT NOT NULL, ended_at TEXT,
+    summary TEXT, tasks_done TEXT DEFAULT '[]',
+    handoff TEXT,
+    model_id TEXT,
+    model_version TEXT
+);
+
+CREATE TABLE IF NOT EXISTS decisions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    decision TEXT NOT NULL,
+    task_slug TEXT REFERENCES tasks(slug) ON DELETE SET NULL,
+    rationale TEXT, created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS memory (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT NOT NULL CHECK(type IN ('pattern', 'gotcha', 'convention', 'context', 'dead_end')),
+    title TEXT NOT NULL,
+    content TEXT NOT NULL, tags TEXT,
+    task_slug TEXT REFERENCES tasks(slug) ON DELETE SET NULL,
+    archived_at TEXT,
+    created_at TEXT NOT NULL, updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS explorations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    summary TEXT,
+    time_limit_min INTEGER DEFAULT 30,
+    task_slug TEXT REFERENCES tasks(slug) ON DELETE SET NULL,
+    started_at TEXT NOT NULL,
+    ended_at TEXT,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    task_slug TEXT NOT NULL REFERENCES tasks(slug) ON DELETE CASCADE,
+    run_type TEXT NOT NULL CHECK(run_type IN ('L1','L2','L3')),
+    critical_findings INTEGER NOT NULL DEFAULT 0,
+    warnings INTEGER NOT NULL DEFAULT 0,
+    run_at TEXT NOT NULL,
+    notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS brain_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_id INTEGER REFERENCES sessions(id) ON DELETE SET NULL,
+    event_type TEXT NOT NULL CHECK(event_type IN ('search','hit','write','ignored')),
+    query TEXT,
+    result_count INTEGER NOT NULL DEFAULT 0,
+    ts TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS memory_edges (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_type TEXT NOT NULL CHECK(source_type IN ('memory', 'decision')),
+    source_id INTEGER NOT NULL,
+    target_type TEXT NOT NULL CHECK(target_type IN ('memory', 'decision')),
+    target_id INTEGER NOT NULL,
+    relation TEXT NOT NULL CHECK(relation IN ('supersedes', 'caused_by', 'relates_to', 'contradicts')),
+    confidence REAL NOT NULL DEFAULT 1.0,
+    created_by TEXT,
+    valid_from TEXT NOT NULL,
+    valid_to TEXT,
+    invalidated_by INTEGER REFERENCES memory_edges(id) ON DELETE SET NULL,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS task_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    task_slug TEXT NOT NULL REFERENCES tasks(slug) ON DELETE CASCADE,
+    message TEXT NOT NULL,
+    phase TEXT CHECK(phase IS NULL OR phase IN
+        ('planning', 'implementation', 'review', 'testing', 'done')),
+    diff_stats TEXT,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS reasoning_steps (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    task_slug TEXT NOT NULL REFERENCES tasks(slug) ON DELETE CASCADE,
+    seq INTEGER NOT NULL,
+    kind TEXT NOT NULL CHECK(kind IN
+        ('intent', 'premise', 'action', 'verification')),
+    content TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    entity_type TEXT NOT NULL,
+    entity_id TEXT NOT NULL,
+    action TEXT NOT NULL,
+    actor TEXT,
+    details TEXT,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    prev_hash TEXT,
+    entry_hash TEXT
+);
+
+CREATE TABLE IF NOT EXISTS events_anchor (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    head_id INTEGER NOT NULL,
+    head_hash TEXT NOT NULL,
+    event_count INTEGER NOT NULL,
+    envelope_json TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS roles (
+    slug TEXT PRIMARY KEY CHECK(length(slug) <= 64),
+    title TEXT NOT NULL,
+    description TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS verification_runs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    task_slug TEXT,
+    scope TEXT NOT NULL CHECK(scope IN
+        ('lightweight', 'standard', 'high', 'critical', 'manual')),
+    command TEXT NOT NULL,
+    exit_code INTEGER NOT NULL,
+    summary TEXT,
+    files_hash TEXT NOT NULL,
+    ran_at TEXT NOT NULL,
+    duration_ms INTEGER,
+    receipt_json TEXT
+);
+
+CREATE TABLE IF NOT EXISTS session_usage_metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_id INTEGER NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+    tokens_input INTEGER NOT NULL DEFAULT 0,
+    tokens_output INTEGER NOT NULL DEFAULT 0,
+    tokens_total INTEGER NOT NULL DEFAULT 0,
+    cost_usd REAL NOT NULL DEFAULT 0,
+    tool_calls INTEGER NOT NULL DEFAULT 0,
+    model TEXT,
+    recorded_at TEXT NOT NULL,
+    UNIQUE(session_id)
+);
+
+CREATE TABLE IF NOT EXISTS usage_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    session_id INTEGER NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+    task_slug TEXT REFERENCES tasks(slug) ON DELETE SET NULL,
+    model_id TEXT,
+    tokens_input INTEGER NOT NULL CHECK(tokens_input >= 0),
+    tokens_output INTEGER NOT NULL CHECK(tokens_output >= 0),
+    tokens_total INTEGER NOT NULL CHECK(tokens_total >= 0),
+    cost_usd REAL NOT NULL DEFAULT 0 CHECK(cost_usd >= 0),
+    tool_calls INTEGER NOT NULL DEFAULT 0 CHECK(tool_calls >= 0),
+    source TEXT NOT NULL CHECK(source IN ('session_record', 'manual', 'posttool')),
+    recorded_at TEXT NOT NULL,
+    tool_name TEXT
+);
+`
+
+export const FTS_SQL = `
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_tasks USING fts5(
+    slug, title, goal, notes, acceptance_criteria,
+    content='tasks', content_rowid='id'
+);
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_memory USING fts5(
+    title, content, tags,
+    content='memory', content_rowid='id'
+);
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_decisions USING fts5(
+    decision, rationale,
+    content='decisions', content_rowid='id'
+);
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_task_logs USING fts5(
+    message,
+    content='task_logs', content_rowid='id'
+);
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_reasoning_steps USING fts5(
+    content,
+    content='reasoning_steps', content_rowid='id'
+);
+`
+
+export const FTS_TRIGGERS_SQL = `
+CREATE TRIGGER IF NOT EXISTS tasks_ai AFTER INSERT ON tasks BEGIN
+    INSERT INTO fts_tasks(rowid, slug, title, goal, notes, acceptance_criteria)
+    VALUES (new.id, new.slug, new.title, new.goal, new.notes, new.acceptance_criteria);
+END;
+CREATE TRIGGER IF NOT EXISTS tasks_ad AFTER DELETE ON tasks BEGIN
+    INSERT INTO fts_tasks(fts_tasks, rowid, slug, title, goal, notes, acceptance_criteria)
+    VALUES ('delete', old.id, old.slug, old.title, old.goal, old.notes, old.acceptance_criteria);
+END;
+CREATE TRIGGER IF NOT EXISTS tasks_au AFTER UPDATE ON tasks BEGIN
+    INSERT INTO fts_tasks(fts_tasks, rowid, slug, title, goal, notes, acceptance_criteria)
+    VALUES ('delete', old.id, old.slug, old.title, old.goal, old.notes, old.acceptance_criteria);
+    INSERT INTO fts_tasks(rowid, slug, title, goal, notes, acceptance_criteria)
+    VALUES (new.id, new.slug, new.title, new.goal, new.notes, new.acceptance_criteria);
+END;
+
+CREATE TRIGGER IF NOT EXISTS memory_ai AFTER INSERT ON memory BEGIN
+    INSERT INTO fts_memory(rowid, title, content, tags)
+    VALUES (new.id, new.title, new.content, new.tags);
+END;
+CREATE TRIGGER IF NOT EXISTS memory_ad AFTER DELETE ON memory BEGIN
+    INSERT INTO fts_memory(fts_memory, rowid, title, content, tags)
+    VALUES ('delete', old.id, old.title, old.content, old.tags);
+END;
+CREATE TRIGGER IF NOT EXISTS memory_au AFTER UPDATE ON memory BEGIN
+    INSERT INTO fts_memory(fts_memory, rowid, title, content, tags)
+    VALUES ('delete', old.id, old.title, old.content, old.tags);
+    INSERT INTO fts_memory(rowid, title, content, tags)
+    VALUES (new.id, new.title, new.content, new.tags);
+END;
+
+CREATE TRIGGER IF NOT EXISTS decisions_ai AFTER INSERT ON decisions BEGIN
+    INSERT INTO fts_decisions(rowid, decision, rationale)
+    VALUES (new.id, new.decision, new.rationale);
+END;
+CREATE TRIGGER IF NOT EXISTS decisions_ad AFTER DELETE ON decisions BEGIN
+    INSERT INTO fts_decisions(fts_decisions, rowid, decision, rationale)
+    VALUES ('delete', old.id, old.decision, old.rationale);
+END;
+CREATE TRIGGER IF NOT EXISTS decisions_au AFTER UPDATE ON decisions BEGIN
+    INSERT INTO fts_decisions(fts_decisions, rowid, decision, rationale)
+    VALUES ('delete', old.id, old.decision, old.rationale);
+    INSERT INTO fts_decisions(rowid, decision, rationale)
+    VALUES (new.id, new.decision, new.rationale);
+END;
+
+CREATE TRIGGER IF NOT EXISTS task_logs_ai AFTER INSERT ON task_logs BEGIN
+    INSERT INTO fts_task_logs(rowid, message)
+    VALUES (new.id, new.message);
+END;
+CREATE TRIGGER IF NOT EXISTS task_logs_ad AFTER DELETE ON task_logs BEGIN
+    INSERT INTO fts_task_logs(fts_task_logs, rowid, message)
+    VALUES ('delete', old.id, old.message);
+END;
+
+CREATE TRIGGER IF NOT EXISTS reasoning_steps_ai AFTER INSERT ON reasoning_steps BEGIN
+    INSERT INTO fts_reasoning_steps(rowid, content)
+    VALUES (new.id, new.content);
+END;
+CREATE TRIGGER IF NOT EXISTS reasoning_steps_ad AFTER DELETE ON reasoning_steps BEGIN
+    INSERT INTO fts_reasoning_steps(fts_reasoning_steps, rowid, content)
+    VALUES ('delete', old.id, old.content);
+END;
+
+CREATE TRIGGER IF NOT EXISTS tasks_audit_insert AFTER INSERT ON tasks BEGIN
+    INSERT INTO events(entity_type, entity_id, action, details)
+    VALUES ('task', new.slug, 'created',
+            json_object('title', new.title, 'status', new.status));
+END;
+CREATE TRIGGER IF NOT EXISTS tasks_audit_status AFTER UPDATE OF status ON tasks BEGIN
+    INSERT INTO events(entity_type, entity_id, action, actor, details)
+    VALUES ('task', new.slug, 'status_changed', new.claimed_by,
+            json_object('from', old.status, 'to', new.status));
+END;
+CREATE TRIGGER IF NOT EXISTS tasks_audit_claim AFTER UPDATE OF claimed_by ON tasks
+    WHEN old.claimed_by IS NOT new.claimed_by BEGIN
+    INSERT INTO events(entity_type, entity_id, action, actor, details)
+    VALUES ('task', new.slug, 'claimed', new.claimed_by,
+            json_object('previous', COALESCE(old.claimed_by, '')));
+END;
+CREATE TRIGGER IF NOT EXISTS tasks_audit_delete AFTER DELETE ON tasks BEGIN
+    INSERT INTO events(entity_type, entity_id, action, details)
+    VALUES ('task', old.slug, 'deleted',
+            json_object('title', old.title));
+END;
+`
+
+export const INDEXES_SQL = `
+CREATE INDEX IF NOT EXISTS idx_stories_epic_id ON stories(epic_id);
+CREATE INDEX IF NOT EXISTS idx_stories_status ON stories(status);
+CREATE INDEX IF NOT EXISTS idx_tasks_story_id ON tasks(story_id);
+CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status);
+CREATE INDEX IF NOT EXISTS idx_tasks_slug ON tasks(slug);
+CREATE INDEX IF NOT EXISTS idx_decisions_task_slug ON decisions(task_slug);
+CREATE INDEX IF NOT EXISTS idx_memory_type ON memory(type);
+CREATE INDEX IF NOT EXISTS idx_memory_task_slug ON memory(task_slug);
+CREATE INDEX IF NOT EXISTS idx_events_entity ON events(entity_type, entity_id);
+CREATE INDEX IF NOT EXISTS idx_events_created ON events(created_at);
+CREATE INDEX IF NOT EXISTS idx_task_logs_slug ON task_logs(task_slug);
+CREATE INDEX IF NOT EXISTS idx_task_logs_phase ON task_logs(phase);
+CREATE INDEX IF NOT EXISTS idx_task_logs_created ON task_logs(created_at);
+CREATE INDEX IF NOT EXISTS idx_reasoning_steps_slug ON reasoning_steps(task_slug, seq);
+CREATE INDEX IF NOT EXISTS idx_reasoning_steps_created ON reasoning_steps(created_at);
+CREATE INDEX IF NOT EXISTS idx_edges_source ON memory_edges(source_type, source_id);
+CREATE INDEX IF NOT EXISTS idx_edges_target ON memory_edges(target_type, target_id);
+CREATE INDEX IF NOT EXISTS idx_edges_relation ON memory_edges(relation);
+CREATE INDEX IF NOT EXISTS idx_edges_valid ON memory_edges(valid_to);
+CREATE INDEX IF NOT EXISTS idx_verify_task ON verification_runs(task_slug, ran_at DESC);
+CREATE INDEX IF NOT EXISTS idx_verify_files_hash ON verification_runs(files_hash);
+CREATE INDEX IF NOT EXISTS idx_session_usage_session_id ON session_usage_metrics(session_id);
+CREATE INDEX IF NOT EXISTS idx_session_usage_recorded_at ON session_usage_metrics(recorded_at);
+CREATE INDEX IF NOT EXISTS idx_usage_events_session ON usage_events(session_id, recorded_at);
+CREATE INDEX IF NOT EXISTS idx_usage_events_task ON usage_events(task_slug, recorded_at);
+`
+
+export const SPECS_SQL = `
+CREATE TABLE IF NOT EXISTS specs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT NOT NULL UNIQUE,
+    type TEXT NOT NULL CHECK(type IN
+        ('ARCH', 'API', 'DATA', 'INT', 'PROC', 'UI', 'AI', 'SEC', 'OPS')),
+    title TEXT NOT NULL,
+    content_ref TEXT,
+    version TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN
+        ('draft', 'active', 'deprecated')),
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS task_specs (
+    task_slug TEXT NOT NULL REFERENCES tasks(slug) ON DELETE CASCADE,
+    spec_slug TEXT NOT NULL REFERENCES specs(slug) ON DELETE CASCADE,
+    relation TEXT NOT NULL DEFAULT 'implements' CHECK(relation IN
+        ('implements', 'constrained_by')),
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (task_slug, spec_slug, relation)
+);
+
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_specs USING fts5(
+    slug, title, content_ref,
+    content='specs', content_rowid='id'
+);
+
+CREATE TRIGGER IF NOT EXISTS specs_ai AFTER INSERT ON specs BEGIN
+    INSERT INTO fts_specs(rowid, slug, title, content_ref)
+    VALUES (new.id, new.slug, new.title, new.content_ref);
+END;
+CREATE TRIGGER IF NOT EXISTS specs_ad AFTER DELETE ON specs BEGIN
+    INSERT INTO fts_specs(fts_specs, rowid, slug, title, content_ref)
+    VALUES ('delete', old.id, old.slug, old.title, old.content_ref);
+END;
+CREATE TRIGGER IF NOT EXISTS specs_au AFTER UPDATE ON specs BEGIN
+    INSERT INTO fts_specs(fts_specs, rowid, slug, title, content_ref)
+    VALUES ('delete', old.id, old.slug, old.title, old.content_ref);
+    INSERT INTO fts_specs(rowid, slug, title, content_ref)
+    VALUES (new.id, new.slug, new.title, new.content_ref);
+END;
+`
+
+export const ADAPTS_SQL = `
+CREATE TABLE IF NOT EXISTS adapts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    slug TEXT NOT NULL UNIQUE,
+    title TEXT NOT NULL,
+    tz_ref TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN
+        ('draft', 'signed', 'superseded')),
+    parent_adapt TEXT REFERENCES adapts(slug) ON DELETE SET NULL,
+    delta_n INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS adapt_interpretations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    adapt_slug TEXT NOT NULL REFERENCES adapts(slug) ON DELETE CASCADE,
+    tz_ref TEXT NOT NULL,
+    citation TEXT NOT NULL,
+    engineering_interpretation TEXT NOT NULL,
+    term_mapping TEXT,
+    scenarios TEXT,
+    scope_in TEXT NOT NULL,
+    scope_out TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS adapt_findings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    adapt_slug TEXT NOT NULL REFERENCES adapts(slug) ON DELETE CASCADE,
+    category TEXT NOT NULL CHECK(category IN
+        ('contradiction', 'gap', 'hidden-assumption', 'feasibility',
+         'regulatory', 'terminology', 'scope')),
+    description TEXT NOT NULL,
+    tz_ref TEXT,
+    resolution TEXT,
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS adapt_signatures (
+    adapt_slug TEXT NOT NULL REFERENCES adapts(slug) ON DELETE CASCADE,
+    role TEXT NOT NULL CHECK(role IN ('client', 'architect')),
+    signed_by TEXT NOT NULL,
+    signed_at TEXT NOT NULL,
+    key_fingerprint TEXT,
+    signature TEXT,
+    PRIMARY KEY (adapt_slug, role)
+);
+
+CREATE TABLE IF NOT EXISTS adapt_links (
+    adapt_slug TEXT NOT NULL REFERENCES adapts(slug) ON DELETE CASCADE,
+    target_type TEXT NOT NULL CHECK(target_type IN ('task', 'spec')),
+    target_slug TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (adapt_slug, target_type, target_slug)
+);
+
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_adapts USING fts5(
+    slug, title, tz_ref,
+    content='adapts', content_rowid='id'
+);
+
+CREATE TRIGGER IF NOT EXISTS adapts_ai AFTER INSERT ON adapts BEGIN
+    INSERT INTO fts_adapts(rowid, slug, title, tz_ref)
+    VALUES (new.id, new.slug, new.title, new.tz_ref);
+END;
+CREATE TRIGGER IF NOT EXISTS adapts_ad AFTER DELETE ON adapts BEGIN
+    INSERT INTO fts_adapts(fts_adapts, rowid, slug, title, tz_ref)
+    VALUES ('delete', old.id, old.slug, old.title, old.tz_ref);
+END;
+CREATE TRIGGER IF NOT EXISTS adapts_au AFTER UPDATE ON adapts BEGIN
+    INSERT INTO fts_adapts(fts_adapts, rowid, slug, title, tz_ref)
+    VALUES ('delete', old.id, old.slug, old.title, old.tz_ref);
+    INSERT INTO fts_adapts(rowid, slug, title, tz_ref)
+    VALUES (new.id, new.slug, new.title, new.tz_ref);
+END;
+`
+
+export const SNIPPETS_SQL = `
+CREATE TABLE IF NOT EXISTS snippets (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    hash TEXT NOT NULL UNIQUE,
+    language TEXT NOT NULL,
+    code TEXT NOT NULL,
+    source_file TEXT,
+    source_lines TEXT,
+    taxonomy_kind TEXT,
+    fts_rank REAL,
+    created_at TEXT NOT NULL
+);
+
+CREATE VIRTUAL TABLE IF NOT EXISTS fts_snippets USING fts5(
+    code, source_file, taxonomy_kind,
+    content='snippets', content_rowid='id'
+);
+
+CREATE TRIGGER IF NOT EXISTS snippets_ai AFTER INSERT ON snippets BEGIN
+    INSERT INTO fts_snippets(rowid, code, source_file, taxonomy_kind)
+    VALUES (new.id, new.code, new.source_file, new.taxonomy_kind);
+END;
+CREATE TRIGGER IF NOT EXISTS snippets_ad AFTER DELETE ON snippets BEGIN
+    INSERT INTO fts_snippets(fts_snippets, rowid, code, source_file, taxonomy_kind)
+    VALUES ('delete', old.id, old.code, old.source_file, old.taxonomy_kind);
+END;
+CREATE TRIGGER IF NOT EXISTS snippets_au AFTER UPDATE ON snippets BEGIN
+    INSERT INTO fts_snippets(fts_snippets, rowid, code, source_file, taxonomy_kind)
+    VALUES ('delete', old.id, old.code, old.source_file, old.taxonomy_kind);
+    INSERT INTO fts_snippets(rowid, code, source_file, taxonomy_kind)
+    VALUES (new.id, new.code, new.source_file, new.taxonomy_kind);
+END;
+`
+
+export const ALL_SCHEMA_SQL = [
+  SCHEMA_SQL,
+  SPECS_SQL,
+  ADAPTS_SQL,
+  SNIPPETS_SQL,
+].join('\n')
+
+export const ALL_FTS_SQL = [
+  FTS_SQL,
+  FTS_TRIGGERS_SQL,
+].join('\n')
+
+export const ALL_DDL_SQL = ALL_SCHEMA_SQL + '\n' + ALL_FTS_SQL + '\n' + INDEXES_SQL
