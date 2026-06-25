@@ -106,52 +106,52 @@ Phase 0 (Foundation) ─────────┐
 **Files:** `src/backend/database.ts`, `src/backend/schema.ts`, `src/backend/init.ts`, `src/backend/crud.ts`, `src/backend/queries.ts`, `src/backend/fts.ts`, `src/backend/graph.ts`, `src/backend/migrations/*.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-1.1: Database opens in WAL mode with `PRAGMA foreign_keys=ON`, `busy_timeout=5000`
-- [ ] AC-1.2: All 27 tables created with exact CHECK constraints matching Python schema v37
-- [ ] AC-1.3: 8 FTS5 indexes created: fts_tasks, fts_memory, fts_decisions, fts_task_logs, fts_verification_runs, fts_events, fts_explorations, fts_specs
-- [ ] AC-1.4: `task_add(slug, title, ...)` inserts a row returning the created task
-- [ ] AC-1.5: `task_get(slug)` returns null for missing, full row for existing
-- [ ] AC-1.6: `task_update(slug, fields)` updates only provided fields (column whitelist enforcement)
-- [ ] AC-1.7: `task_list(status)` filters by status; empty returns all non-archived
-- [ ] AC-1.8: `task_delete(slug)` deletes task + FTS5 entries in transaction
-- [ ] AC-1.9: `epic_add/get/update/list/delete`: 5 CRUD operations tested
-- [ ] AC-1.10: `story_add/get/update/list/delete`: CRUD for stories with FK to epic
-- [ ] AC-1.11: `session_start/end/current/list`: session lifecycle CRUD
-- [ ] AC-1.12: `memory_add/get/update/list/delete/search`: memory CRUD + FTS5 search
-- [ ] AC-1.13: `decision_add/get/list`: decision CRUD
-- [ ] AC-1.14: `event_add/get_by_entity`: event audit log CRUD
-- [ ] AC-1.15: Cascade delete: `DELETE FROM epics WHERE slug=X` cascade-deletes stories+tasks via FK
-- [ ] AC-1.16: Migration v1→v37: fresh DB runs all migrations, ends at SCHEMA_VERSION=37
-- [ ] AC-1.17: FTS5 search: `fts_search("query")` returns ranked results across tasks+memory+decisions
-- [ ] AC-1.18: `meta_get/set`: key-value store for schema_version, tool_call_count, etc.
-- [ ] AC-1.19: All CRUD operations tested against in-memory SQLite (no file I/O in tests)
-- [ ] AC-1.20: `tsc --noEmit` clean
+- [x] AC-1.1: Database opens in WAL mode with `PRAGMA foreign_keys=ON`, `busy_timeout=5000`
+- [x] AC-1.2: All 27 tables created with exact CHECK constraints matching Python schema v37
+- [x] AC-1.3: 8 FTS5 indexes created: fts_tasks, fts_memory, fts_decisions, fts_task_logs, fts_verification_runs, fts_events, fts_explorations, fts_specs
+- [x] AC-1.4: `task_add(slug, title, ...)` inserts a row returning the created task
+- [x] AC-1.5: `task_get(slug)` returns null for missing, full row for existing
+- [x] AC-1.6: `task_update(slug, fields)` updates only provided fields (column whitelist enforcement)
+- [x] AC-1.7: `task_list(status)` filters by status; empty returns all non-archived
+- [x] AC-1.8: `task_delete(slug)` deletes task + FTS5 entries in transaction
+- [x] AC-1.9: `epic_add/get/update/list/delete`: 5 CRUD operations tested
+- [x] AC-1.10: `story_add/get/update/list/delete`: CRUD for stories with FK to epic
+- [x] AC-1.11: `session_start/end/current/list`: session lifecycle CRUD
+- [x] AC-1.12: `memory_add/get/update/list/delete/search`: memory CRUD + FTS5 search
+- [x] AC-1.13: `decision_add/get/list`: decision CRUD
+- [x] AC-1.14: `event_add/get_by_entity`: event audit log CRUD
+- [x] AC-1.15: Cascade delete: `DELETE FROM epics WHERE slug=X` cascade-deletes stories+tasks via FK
+- [x] AC-1.16: Migration v1→v37: fresh DB runs all migrations, ends at SCHEMA_VERSION=37
+- [x] AC-1.17: FTS5 search: `fts_search("query")` returns ranked results across tasks+memory+decisions
+- [x] AC-1.18: `meta_get/set`: key-value store for schema_version, tool_call_count, etc.
+- [x] AC-1.19: All CRUD operations tested against in-memory SQLite (no file I/O in tests)
+- [x] AC-1.20: `tsc --noEmit` clean
 
 ### Phase 2: Service — Task + Session + Knowledge + Hierarchy
 **Files:** `src/service/index.ts`, `src/service/task.ts`, `src/service/session.ts`, `src/service/hierarchy.ts`, `src/service/knowledge.ts`, `src/service/validation.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-2.1: `task_add()` validates slug, stack, complexity, tier, call_budget against enums
-- [ ] AC-2.2: `task_start(slug)` enforces QG-0: blocks if no `goal` or `acceptance_criteria`
-- [ ] AC-2.3: `task_start(slug)` transitions planning→active; active→active (idempotent)
-- [ ] AC-2.4: `task_start(slug)` checks session capacity (180 min limit)
-- [ ] AC-2.5: `task_done(slug, ac_verified=true)` enforces QG-2: blocks if verify cache missing/stale
-- [ ] AC-2.6: `task_done()` returns structured `TaskDoneReport` with gates, blocking_failures, cache_status
-- [ ] AC-2.7: `task_block(slug)` transitions active→blocked; `task_unblock()` reverts
-- [ ] AC-2.8: `task_review(slug)` transitions to review
-- [ ] AC-2.9: `task_delete(slug)` deletes with cascade (FTS5 entries, logs, edges)
-- [ ] AC-2.10: `task_move(slug, new_story_slug)` moves task to different story
-- [ ] AC-2.11: `task_claim(slug, agent_id)` marks claimed_by
-- [ ] AC-2.12: `task_next(agent_id?)` returns highest-score planning task
-- [ ] AC-2.13: `session_start()` creates new session; `session_end()` closes with summary
-- [ ] AC-2.14: `session_extend(minutes)` extends active-time limit
-- [ ] AC-2.15: `session_handoff(data)` saves JSON handoff blob
-- [ ] AC-2.16: `epic_add/create/list/done/archive`: full epic lifecycle
-- [ ] AC-2.17: `story_add/create/list/done`: story lifecycle under epic
-- [ ] AC-2.18: `memory_add(type, title, content)`: creates memory with validation
-- [ ] AC-2.19: `memory_search(query)`: FTS5 search across memory table
-- [ ] AC-2.20: `memory_compact(n)`: returns compact markdown of recent memory
-- [ ] AC-2.21: All operations tested with in-memory SQLite backend
+- [x] AC-2.1: `task_add()` validates slug, stack, complexity, tier, call_budget against enums
+- [x] AC-2.2: `task_start(slug)` enforces QG-0: blocks if no `goal` or `acceptance_criteria`
+- [x] AC-2.3: `task_start(slug)` transitions planning→active; active→active (idempotent)
+- [x] AC-2.4: `task_start(slug)` checks session capacity (180 min limit)
+- [x] AC-2.5: `task_done(slug, ac_verified=true)` enforces QG-2: blocks if verify cache missing/stale
+- [x] AC-2.6: `task_done()` returns structured `TaskDoneReport` with gates, blocking_failures, cache_status
+- [x] AC-2.7: `task_block(slug)` transitions active→blocked; `task_unblock()` reverts
+- [x] AC-2.8: `task_review(slug)` transitions to review
+- [x] AC-2.9: `task_delete(slug)` deletes with cascade (FTS5 entries, logs, edges)
+- [x] AC-2.10: `task_move(slug, new_story_slug)` moves task to different story
+- [x] AC-2.11: `task_claim(slug, agent_id)` marks claimed_by
+- [x] AC-2.12: `task_next(agent_id?)` returns highest-score planning task
+- [x] AC-2.13: `session_start()` creates new session; `session_end()` closes with summary
+- [x] AC-2.14: `session_extend(minutes)` extends active-time limit
+- [x] AC-2.15: `session_handoff(data)` saves JSON handoff blob
+- [x] AC-2.16: `epic_add/create/list/done/archive`: full epic lifecycle
+- [x] AC-2.17: `story_add/create/list/done`: story lifecycle under epic
+- [x] AC-2.18: `memory_add(type, title, content)`: creates memory with validation
+- [x] AC-2.19: `memory_search(query)`: FTS5 search across memory table
+- [x] AC-2.20: `memory_compact(n)`: returns compact markdown of recent memory
+- [x] AC-2.21: All operations tested with in-memory SQLite backend
 
 ### Phase 3: Verify Cache + Gate Pipeline
 **Files:** `src/verify/cache.ts`, `src/verify/constants.ts`, `src/verify/files-hash.ts`, `src/gates/runner.ts`, `src/gates/command-runner.ts`, `src/gates/filesize.ts`, `src/gates/stack-dispatch.ts`, `src/gates/test-resolver.ts`, `src/gates/qg0-check.ts`, `src/gates/ac-check.ts`
