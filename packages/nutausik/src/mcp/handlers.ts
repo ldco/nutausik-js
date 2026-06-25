@@ -16,6 +16,8 @@ import { SkillManager } from '../skills/manager.js'
 import { StackRegistry } from '../stacks/registry.js'
 import { suggestModel } from '../model/routing.js'
 import { BrainSearch } from '../brain/search.js'
+import { emitReceipt } from '../verify/receipt-emit.js'
+import { checkReceiptStructure, checkReceiptSignature } from '../verify/receipt-check.js'
 
 
 function openBackend(): SQLiteBackend {
@@ -152,6 +154,11 @@ async function dispatch(name: string, args: Record<string, unknown>, be: SQLiteB
     // ── Verify ──
     case 'nutausik_verify': {
       const result = await serviceVerify.runVerifyForTask(be, str(args.task_slug), (args.relevant_files as string ?? '').split(',').filter(Boolean), str(args.scope) || 'standard')
+      if (result.ok && args.emit_receipt) {
+        const gates = result.gates.map(g => ({ name: g.name, passed: g.passed, severity: g.severity }))
+        const receipt = emitReceipt(be, str(args.task_slug), str(args.scope) || 'standard', gates, result.ok)
+        ;(result as unknown as Record<string, unknown>).receipt = receipt
+      }
       return JSON.stringify(result, null, 2)
     }
     case 'nutausik_gates_list': return 'filesize: enabled\nruff: enabled\nmypy: enabled\ntsc: enabled\neslint: enabled'
@@ -283,12 +290,42 @@ async function dispatch(name: string, args: Record<string, unknown>, be: SQLiteB
 
     // ── Receipts ──
     case 'nutausik_receipt_show': {
-      const task = crud.taskGet(be, str(args.task_slug))
-      if (!task) return `Task '${str(args.task_slug)}' not found.`
-      return `Receipt: task=${str(args.task_slug)} status=${task.status} completed=${task.completed_at ?? 'not yet'}`
+      const taskSlug = str(args.task_slug)
+      const prefix = `receipt:${taskSlug}:`
+      const rows = be.db.prepare("SELECT key, value FROM meta WHERE key LIKE ? ORDER BY key DESC LIMIT 1").all(prefix + '%') as { key: string; value: string }[]
+      if (rows.length === 0) return `No receipt found for '${taskSlug}'.`
+      return rows[0]!.value
     }
-    case 'nutausik_receipt_verify': return `Receipt verification: ${str(args.receipt_json).startsWith('{') ? 'valid format' : 'invalid format'}`
-    case 'nutausik_receipt_export': return `Receipt export for '${str(args.task_slug)}': run locally with: tausik receipt export ${str(args.task_slug)}`
+    case 'nutausik_receipt_verify': {
+      const receiptJson = str(args.receipt_json)
+      try {
+        const parsed = JSON.parse(receiptJson)
+        const structure = checkReceiptStructure(parsed.receipt ?? parsed)
+        const sigHex = parsed.signature?.value ?? args.signature_hex ?? ''
+        if (structure.valid && parsed.receipt && parsed.signature) {
+          const pubHex = str(args.public_key_hex)
+          if (pubHex && sigHex) {
+            const sigCheck = checkReceiptSignature(parsed.receipt, sigHex, pubHex)
+            return JSON.stringify({ structure, signature: sigCheck })
+          }
+          return JSON.stringify({ structure, signature: 'public_key_hex required for signature verification' })
+        }
+        return JSON.stringify({ structure, signature: null })
+      } catch {
+        return `Invalid receipt JSON: ${receiptJson.slice(0, 100)}`
+      }
+    }
+    case 'nutausik_receipt_export': {
+      const taskSlug = str(args.task_slug)
+      const prefix = `receipt:${taskSlug}:`
+      const rows = be.db.prepare("SELECT key, value FROM meta WHERE key LIKE ? ORDER BY key").all(prefix + '%') as { key: string; value: string }[]
+      if (rows.length === 0) return `No receipts for '${taskSlug}'.`
+      const allReceipts: Record<string, unknown> = {}
+      for (const row of rows) {
+        allReceipts[row.key.replace(prefix, 'run_')] = JSON.parse(row.value)
+      }
+      return JSON.stringify(allReceipts, null, 2)
+    }
 
     // ── Events ──
     case 'nutausik_event_show': {
