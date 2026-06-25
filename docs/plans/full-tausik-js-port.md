@@ -157,39 +157,39 @@ Phase 0 (Foundation) ─────────┐
 **Files:** `src/verify/cache.ts`, `src/verify/constants.ts`, `src/verify/files-hash.ts`, `src/gates/runner.ts`, `src/gates/command-runner.ts`, `src/gates/filesize.ts`, `src/gates/stack-dispatch.ts`, `src/gates/test-resolver.ts`, `src/gates/qg0-check.ts`, `src/gates/ac-check.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-3.1: `record_run(conn, task_slug, command, exit_code, files_hash)` inserts into `verification_runs`
-- [ ] AC-3.2: `lookup_recent(task_slug, files_hash)` returns cached result if ≤10 min old + hash matches
-- [ ] AC-3.3: `lookup_recent()` returns null if cache stale (>10 min) or hash mismatch
-- [ ] AC-3.4: `run_gates(trigger, files)` dispatches to applicable gates
-- [ ] AC-3.5: Stack dispatch: `.py` file → python stack gates (pytest, ruff, mypy)
-- [ ] AC-3.6: Stack dispatch: `.ts` file → typescript stack gates (tsc, eslint)
-- [ ] AC-3.7: Filesize gate: blocks files >400 lines (configurable)
-- [ ] AC-3.8: Command gate: runs external command, captures stdout/stderr, reports pass/fail
-- [ ] AC-3.9: Command gate: blocks disallowed executables (shell injection protection)
-- [ ] AC-3.10: QG-0 check: rejects `task_start` without `goal` field
-- [ ] AC-3.11: QG-0 check: rejects `task_start` without `acceptance_criteria`
-- [ ] AC-3.12: AC check: tier-based verification checklist validation
-- [ ] AC-3.13: `run_gates_with_cache()`: runs gates if cache miss, returns cached if hit
-- [ ] AC-3.14: Pipeline timeout: `run_gates` aborts after `verify_pipeline_timeout_seconds` (default 60s)
-- [ ] AC-3.15: `filesize_gate`: counts lines for `.py`, `.ts`, `.go`, `.rs`, `.java`, `.php` files
+- [x] AC-3.1: `record_run(conn, task_slug, command, exit_code, files_hash)` inserts into `verification_runs`
+- [x] AC-3.2: `lookup_recent(task_slug, files_hash)` returns cached result if ≤10 min old + hash matches
+- [x] AC-3.3: `lookup_recent()` returns null if cache stale (>10 min) or hash mismatch
+- [x] AC-3.4: `run_gates(trigger, files)` dispatches to applicable gates
+- [x] AC-3.5: Stack dispatch: `.py` file → python stack gates (pytest, ruff, mypy)
+- [x] AC-3.6: Stack dispatch: `.ts` file → typescript stack gates (tsc, eslint)
+- [x] AC-3.7: Filesize gate: blocks files >400 lines (configurable)
+- [x] AC-3.8: Command gate: runs external command, captures stdout/stderr, reports pass/fail
+- [x] AC-3.9: Command gate: blocks disallowed executables (shell injection protection)
+- [x] AC-3.10: QG-0 check: rejects `task_start` without `goal` field
+- [x] AC-3.11: QG-0 check: rejects `task_start` without `acceptance_criteria`
+- [x] AC-3.12: AC check: tier-based verification checklist validation
+- [x] AC-3.13: `run_gates_with_cache()`: runs gates if cache miss, returns cached if hit
+- [x] AC-3.14: Pipeline timeout: `run_gates` aborts after `verify_pipeline_timeout_seconds` (default 60s)
+- [x] AC-3.15: `filesize_gate`: counts lines for `.py`, `.ts`, `.go`, `.rs`, `.java`, `.php` files
 
 ### Phase 4: Crypto — ed25519 + Keys + Receipts
 **Files:** `src/crypto/ed25519.ts`, `src/crypto/keys.ts`, `src/crypto/receipt.ts`, `src/crypto/sign.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-4.1: `generateSeed()` produces 32 random bytes (crypto.randomBytes)
-- [ ] AC-4.2: `publicFromSeed(seed)` derives ed25519 public key (32 bytes)
-- [ ] AC-4.3: `sign(seed, message)` produces 64-byte ed25519 signature
-- [ ] AC-4.4: `verify(publicKey, message, signature)` returns true for valid, false for tampered
-- [ ] AC-4.5: RFC 8032 test vectors: signing known seed+message produces known signature (Section 7.1)
-- [ ] AC-4.6: `loadSeed(projectDir)` reads 32-byte key from `.tausik/tausik.key`
-- [ ] AC-4.7: `saveSeed(projectDir, seed)` writes 32-byte key to `.tausik/tausik.key` with 0o600 perms
-- [ ] AC-4.8: `fingerprint(publicKey)` produces 16-char hex (SHA-256/16)
-- [ ] AC-4.9: `buildReceipt(task_slug, git_sha, scope, gates, passed, ran_at)` → canonical dict
-- [ ] AC-4.10: `canonicalBytes(receipt)` → deterministic JSON (keys sorted, no whitespace, ensure_ascii)
-- [ ] AC-4.11: Same logical receipt always serializes to same bytes (cross-platform determinism)
-- [ ] AC-4.12: `signReceipt(projectDir, receipt)` → `tausik-signed/v1` envelope
-- [ ] AC-4.13: `verifyReceipt(envelope)` validates signature against embedded public key fingerprint
+- [x] AC-4.1: `generateSeed()` produces 32 random bytes (crypto.randomBytes)
+- [x] AC-4.2: `publicFromSeed(seed)` derives ed25519 public key (32 bytes)
+- [x] AC-4.3: `sign(seed, message)` produces 64-byte ed25519 signature
+- [x] AC-4.4: `verify(publicKey, message, signature)` returns true for valid, false for tampered
+- [x] AC-4.5: RFC 8032 test vectors: signing known seed+message produces known signature (Section 7.1)
+- [x] AC-4.6: `loadSeed(projectDir)` reads 32-byte key from `.tausik/tausik.key`
+- [x] AC-4.7: `saveSeed(projectDir, seed)` writes 32-byte key to `.tausik/tausik.key` with 0o600 perms
+- [x] AC-4.8: `fingerprint(publicKey)` produces 16-char hex (SHA-256/16)
+- [x] AC-4.9: `buildReceipt(task_slug, git_sha, scope, gates, passed, ran_at)` → canonical dict
+- [x] AC-4.10: `canonicalBytes(receipt)` → deterministic JSON (keys sorted, no whitespace, ensure_ascii)
+- [x] AC-4.11: Same logical receipt always serializes to same bytes (cross-platform determinism)
+- [x] AC-4.12: `signReceipt(projectDir, receipt)` → `tausik-signed/v1` envelope
+- [x] AC-4.13: `verifyReceipt(envelope)` validates signature against embedded public key fingerprint
 - [ ] **CRITICAL:** Cross-platform test — Python-generated receipt signature verified by TS and vice versa
 
 ### Phase 5: CLI Entry Points
