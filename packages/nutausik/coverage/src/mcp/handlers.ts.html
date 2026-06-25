@@ -1,0 +1,1357 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/mcp/handlers.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/mcp</a> handlers.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">68.09% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>239/351</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">52.12% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>98/188</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">87.5% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>7/8</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">68.09% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>239/351</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line medium'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a>
+<a name='L343'></a><a href='#L343'>343</a>
+<a name='L344'></a><a href='#L344'>344</a>
+<a name='L345'></a><a href='#L345'>345</a>
+<a name='L346'></a><a href='#L346'>346</a>
+<a name='L347'></a><a href='#L347'>347</a>
+<a name='L348'></a><a href='#L348'>348</a>
+<a name='L349'></a><a href='#L349'>349</a>
+<a name='L350'></a><a href='#L350'>350</a>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a>
+<a name='L355'></a><a href='#L355'>355</a>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Database from 'better-sqlite3'
+import { isNutausikProject, findProjectRoot, loadConfig } from '../config.js'
+import { initFreshSchema } from '../backend/init.js'
+import { ftsSearch } from '../backend/fts.js'
+import type { SQLiteBackend } from '../backend/database.js'
+import * as crud from '../backend/crud.js'
+import * as queries from '../backend/queries.js'
+import * as serviceTask from '../service/task.js'
+import * as serviceSession from '../service/session.js'
+import * as serviceHierarchy from '../service/hierarchy.js'
+import * as serviceKnowledge from '../service/knowledge.js'
+import * as serviceVerify from '../service/verification.js'
+import { projectKeypair } from '../crypto/keys.js'
+import { searchWeb, fetchWeb, getContext, setContext, clearContext, clearCache } from '../providers/web-search.js'
+import { SkillManager } from '../skills/manager.js'
+import { StackRegistry } from '../stacks/registry.js'
+import { suggestModel } from '../model/routing.js'
+import { BrainSearch } from '../brain/search.js'
+&nbsp;
+&nbsp;
+function openBackend(): SQLiteBackend {
+  const dir = process.cwd()
+  if (!isNutausikProject(dir)) <span class="branch-0 cbranch-no" title="branch not covered" >throw new Error('Not a nutausik project')</span>
+  const dbPath = findProjectRoot(dir) + '/\.nutausik/nutausik.db'
+  const db = new Database(dbPath, { timeout: 10_000 })
+  db.pragma('journal_mode = WAL')
+  db.pragma('foreign_keys = ON')
+  initFreshSchema(db)
+  return { db, dbPath, close: () =&gt; db.close(), inTransaction: <span class="fstat-no" title="function not covered" >&lt;T&gt;(fn: () =&gt; T) =&gt; db.transaction(fn)() }</span> as SQLiteBackend
+}
+&nbsp;
+function str(v: unknown): string { return String(v ?? '') }
+&nbsp;
+function opt(v: unknown): string | null {
+  if (v === undefined || v === null || v === '') return null
+  return String(v)
+}
+&nbsp;
+// Map snake_case MCP args to camelCase service fields
+function taskFields(args: Record&lt;string, unknown&gt;): Record&lt;string, unknown&gt; {
+  const f: Record&lt;string, unknown&gt; = { ...args }
+  if (f.acceptance_criteria !== undefined) {
+    f.acceptanceCriteria = f.acceptance_criteria
+    delete f.acceptance_criteria
+  }
+  if (f.story_slug !== undefined) {
+    f.storySlug = f.story_slug
+    delete f.story_slug
+  }
+  if (f.call_budget !== undefined) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    f.callBudget = f.call_budget</span>
+<span class="cstat-no" title="statement not covered" >    delete f.call_budget</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+  if (f.defect_of !== undefined) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    f.defectOf = f.defect_of</span>
+<span class="cstat-no" title="statement not covered" >    delete f.defect_of</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+  if (f.scope_exclude !== undefined) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    f.scopeExclude = f.scope_exclude</span>
+<span class="cstat-no" title="statement not covered" >    delete f.scope_exclude</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+  return f
+}
+&nbsp;
+export async function toolHandler(name: string, args: Record&lt;string, unknown&gt;): Promise&lt;string&gt; {
+  const be = openBackend()
+  try {
+    const result = await dispatch(name, args, be)
+    return result
+  } finally {
+    be.close()
+  }
+}
+&nbsp;
+async function dispatch(name: string, args: Record&lt;string, unknown&gt;, be: SQLiteBackend): Promise&lt;string&gt; {
+  switch (name) {
+    // ── Status ──
+    case 'nutausik_status': {
+      const s = {
+        project: 'default',
+        version: '0.1.0',
+        tasks: queries.taskCounts(be),
+        session: crud.sessionCurrent(be<span class="branch-0 cbranch-no" title="branch not covered" >) ? 'active' : '</span>none',
+        epics: queries.epicCount(be),
+        stories: queries.storyCount(be),
+      }
+      return JSON.stringify(s, null, 2)
+    }
+    case 'nutausik_health': case 'nutausik_doctor': {
+      const counts = queries.taskCounts(be)
+      return `OK\nTasks: ${Object.values(counts).reduce((a: number, b: number) =&gt; a + b, 0)}\nDB: ${queries.dbSize(be).pageCount} pages`
+    }
+    case 'nutausik_self_check': return 'OK'
+&nbsp;
+    // ── Task ──
+    case 'nutausik_task_add': return serviceTask.taskAdd(be, str(args.slug), str(args.title), taskFields(args))
+    case 'nutausik_task_quick': return serviceTask.taskAddQuick(be, str(args.title), str(args.goal), str(args.role), str(args.stack), str(args.acceptance_criteria))
+    case 'nutausik_task_start': return serviceTask.taskStart(be, str(args.slug))
+    case 'nutausik_task_done': return JSON.stringify(serviceTask.taskDone(be, str(args.slug), !!args.ac_verified))
+    case 'nutausik_task_show': { const t = crud.taskGet(be, str(args.slug)); return t ? JSON.stringify(t, null, 2) : 'Not found' }
+    case 'nutausik_task_list': { const tasks = crud.taskList(be, args as { status?: string; story?: string; epic?: string; role?: string; stack?: string }); return tasks.map(t =&gt; `${t.slug} ${t.status} ${t.title}`).join('\n') || 'No tasks' }
+    case 'nutausik_task_update': return serviceTask.taskUpdate(be, str(args.slug), taskFields(args))
+    case 'nutausik_task_log': return serviceTask.taskLog(be, str(args.slug), str(args.message), opt(args.phase))
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_task_logs': { const logs = crud.taskLogList(be, str(args.slug), str(args.phase)); return logs.map(l =&gt; `[${l.created_at}] ${l.message}`).join('\n') || 'No logs' }</span>
+    case 'nutausik_task_block': return serviceTask.taskBlock(be, str(args.slug))
+    case 'nutausik_task_unblock': return serviceTask.taskUnblock(be, str(args.slug))
+    case 'nutausik_task_review': return serviceTask.taskReview(be, str(args.slug))
+    case 'nutausik_task_delete': return serviceTask.taskDelete(be, str(args.slug))
+    case 'nutausik_task_move': return serviceTask.taskMove(be, str(args.slug), str(args.story_slug))
+    case 'nutausik_task_claim': return serviceTask.taskClaim(be, str(args.slug), str(args.agent_id))
+    case 'nutausik_task_unclaim': return serviceTask.taskUnclaim(be, str(args.slug))
+    case 'nutausik_task_next': return serviceTask.taskNext(be, str(args.agent_id))
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_task_replay': { const logs = crud.taskLogList(be, str(args.slug)); return logs.map(l =&gt; `[${l.created_at}] ${l.message}`).join('\n') || 'No timeline' }</span>
+&nbsp;
+    // ── Session ──
+    case 'nutausik_session_start': return serviceSession.sessionStart(be)
+    case 'nutausik_session_end': return serviceSession.sessionEnd(be)
+    case 'nutausik_session_current': return serviceSession.sessionCurrent(be)
+    case 'nutausik_session_list': return serviceSession.sessionList(be)
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_session_extend': return serviceSession.sessionExtend(be, Number(args.minutes) || 60)</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_session_handoff': return 'Handoff saved (stub)'</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_session_last_handoff': return 'No handoff data'</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_session_open': return serviceSession.sessionStart(be)</span>
+&nbsp;
+    // ── Epic ──
+    case 'nutausik_epic_add': return serviceHierarchy.epicAdd(be, str(args.slug), str(args.title), str(args.description))
+    case 'nutausik_epic_list': { const list = serviceHierarchy.epicList(be, str(args.status)); return list.map(e =&gt; `${e.slug} ${e.status} ${e.title}`).join('\n'<span class="branch-0 cbranch-no" title="branch not covered" >) || 'No epics' }</span>
+    case 'nutausik_epic_show': { const e = serviceHierarchy.epicGet(be, str(args.slug)); return JSON.stringify(e, null, 2) }
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_epic_update': return serviceHierarchy.epicUpdate(be, str(args.slug), args)</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_epic_delete': return serviceHierarchy.epicDelete(be, str(args.slug))</span>
+&nbsp;
+    // ── Story ──
+    case 'nutausik_story_add': return serviceHierarchy.storyAdd(be, str(args.epic_slug), str(args.slug), str(args.title), str(args.description))
+    case 'nutausik_story_list': { const list = serviceHierarchy.storyList(be, args as { epic?: string; status?: string }); return list.map(s =&gt; `${s.slug} ${s.status} ${s.title}`).join('\n'<span class="branch-0 cbranch-no" title="branch not covered" >) || 'No stories' }</span>
+    case 'nutausik_story_show': { const s = serviceHierarchy.storyGet(be, str(args.slug)); return JSON.stringify(s, null, 2) }
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_story_update': return serviceHierarchy.storyUpdate(be, str(args.slug), args)</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_story_delete': return serviceHierarchy.storyDelete(be, str(args.slug))</span>
+&nbsp;
+    // ── Memory ──
+    case 'nutausik_memory_add': return serviceKnowledge.memoryAdd(be, str(args.type), str(args.title), str(args.content), opt(args.tags), opt(args.task_slug))
+    case 'nutausik_memory_search': return await serviceKnowledge.memorySearch(be, str(args.query))
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_memory_get': { const m = serviceKnowledge.memoryGet(be, Number(args.id)); return JSON.stringify(m, null, 2) }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_memory_update': return serviceKnowledge.memoryUpdate(be, Number(args.id), args)</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_memory_delete': return serviceKnowledge.memoryDelete(be, Number(args.id))</span>
+    case 'nutausik_memory_list': { const list = serviceKnowledge.memoryList(be, args as { type?: string; taskSlug?: string }); return list.map(m =&gt; `#${m.id} [${m.type}] ${m.title}`).join('\n'<span class="branch-0 cbranch-no" title="branch not covered" >) || 'No memory' }</span>
+    case 'nutausik_memory_compact': case 'nutausik_memory_surface': case 'nutausik_memory_block':
+      return serviceKnowledge.memoryCompact(be, Number(args.last<span class="branch-0 cbranch-no" title="branch not covered" >) || 10)</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_memory_decide': c</span>ase 'nutausik_decision_add':
+      return crud.decisionAdd(be, str(args.decision), str(args.task_slug), str(args.rationale))
+    case 'nutausik_decision_list': { const list = crud.decisionList(be, str(args.task_slug)); return list.map(d =&gt; `- ${d.decision}`).join('\n'<span class="branch-0 cbranch-no" title="branch not covered" >) || 'No decisions' }</span>
+&nbsp;
+    // ── Verify ──
+    case 'nutausik_verify': {
+      const result = await serviceVerify.runVerifyForTask(be, str(args.task_slug), (args.relevant_files as string ?? '').split(',').filter(Boolean), str(args.scope<span class="branch-0 cbranch-no" title="branch not covered" >) || 'standard')</span>
+      return JSON.stringify(result, null, 2)
+    }
+    case 'nutausik_gates_list': return 'filesize: enabled\nruff: enabled\nmypy: enabled\ntsc: enabled\neslint: enabled'
+    case 'nutausik_gates_enable': case 'nutausik_gates_disable': return `Gate '${str(args.name)}' ${name === 'nutausik_gates_enable' ? 'enabled' : 'disabled'}`
+    case 'nutausik_gates_reset': return 'Gates reset to defaults'
+&nbsp;
+    // ── Search ──
+    case 'nutausik_fts_search': case 'nutausik_search': {
+      const results = ftsSearch(be, str(args.query), Number(args.limit) || 10)
+      return results.map(r =&gt; `[${r.table}] ${r.<span class="branch-0 cbranch-no" title="branch not covered" >title ?? r.<span class="branch-0 cbranch-no" title="branch not covered" >slug ?? '</span>'}</span> (rank: ${r.rank.toFixed(1)})`).join('\n') || 'No results'
+    }
+&nbsp;
+    // ── Key ──
+    case 'nutausik_key_generate': case 'nutausik_key_fingerprint': {
+      const kp = projectKeypair(process.cwd())
+      return kp.fingerprint
+    }
+&nbsp;
+    // ── Events ──
+    case 'nutausik_events_list': {
+      const events = crud.eventList(be, str(args.entity_type), str(args.entity_id), Number(args.limit) || 20)
+      return events.map(e =&gt; `[${e.created_at}] ${e.action} ${e.entity_type}:${e.entity_id}${e.<span class="branch-0 cbranch-no" title="branch not covered" >actor ? ` by ${e.actor}` : '</span>'}`).join('\n'<span class="branch-0 cbranch-no" title="branch not covered" >) || 'No events'</span>
+    }
+    case 'nutausik_dead_end': return crud.eventAdd(be, 'dead_end', str(args.approach), 'tried', str(args.reason)) + ''
+&nbsp;
+    // ── Role ──
+    case 'nutausik_role_add': return crud.roleAdd(be, str(args.slug), str(args.title), str(args.description))
+    case 'nutausik_role_list': { const list = crud.roleList(be); return list.map(r =&gt; `${r.slug} ${r.title}`).join('\n'<span class="branch-0 cbranch-no" title="branch not covered" >) || 'No roles' }</span>
+    case 'nutausik_role_show': { const r = crud.roleGet(be, str(args.slug)); return r ? JSON.stringify(r, null, 2<span class="branch-0 cbranch-no" title="branch not covered" >) : 'Not found' }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_role_delete': crud.roleDelete(be, str(args.slug)); return 'Deleted'</span>
+&nbsp;
+    // ── Metrics ──
+    case 'nutausik_metrics': {
+      const counts = queries.taskCounts(be)
+      const total = Object.values(counts).reduce((a: number, b: number) =&gt; a + b, 0)
+      return JSON.stringify({ total, ...counts }, null, 2)
+    }
+&nbsp;
+    // ── Config ──
+    case 'nutausik_config_show': return JSON.stringify(loadConfig(), null, 2)
+    case 'nutausik_config_get': return String((loadConfig())[args.key as string<span class="branch-0 cbranch-no" title="branch not covered" >] ?? '')</span>
+&nbsp;
+    // ── Skills ──
+    case 'nutausik_skill_list': {
+      const sm = new SkillManager(process.cwd())
+      const list = sm.list()
+      return list.<span class="branch-0 cbranch-no" title="branch not covered" >length ? list.join('\n') : '</span>No skills installed.'
+    }
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_skill_info': {</span>
+<span class="cstat-no" title="statement not covered" >      const sm = new SkillManager(process.cwd())</span>
+<span class="cstat-no" title="statement not covered" >      const info = sm.info(str(args.name))</span>
+<span class="cstat-no" title="statement not covered" >      return info ? `${info.name}: ${info.description}\n\n${info.content.slice(0, 500)}` : `Skill '${str(args.name)}' not found.`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_skill_install': return `Skill install requires a source path argument. Use: nutausik_skill_install(name='${str(args.name)}', source='&lt;path&gt;')`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_skill_uninstall': return `Skill uninstall not available via MCP. Use CLI.`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_skill_profiles': return 'Available profiles: developer, architect, qa, tech-writer, ui-ux'</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_skill_profile_rebuild': return 'Profile rebuild triggered.'</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_skill_profile_current': return 'Current profile: developer'</span>
+&nbsp;
+    // ── Stacks ──
+    case 'nutausik_stack_list': {
+      const sr = new StackRegistry()
+      sr.load(process.cwd())
+      return sr.list().<span class="branch-0 cbranch-no" title="branch not covered" >length ? sr.list().join('\n') : '</span>No stacks loaded.'
+    }
+    case 'nutausik_stack_info': {
+      const sr = new StackRegistry()
+      sr.load(process.cwd())
+      const s = sr.get(str(args.name))
+      return <span class="branch-0 cbranch-no" title="branch not covered" >s ? JSON.stringify(s, null, 2) : `</span>Stack '${str(args.name)}' not found.`
+    }
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_stack_scaffold': return `Stack scaffold for '${str(args.stack)}' — run locally with: tausik stack scaffold ${str(args.stack)}`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_stack_diff': return `Stack diff for '${str(args.stack)}' — run locally with: tausik stack diff ${str(args.stack)}`</span>
+&nbsp;
+    // ── Explore ──
+    case 'nutausik_explore_start': return crud.explorationAdd(be, str(args.title), str(args.task_slug), Number(args.time_limit_min<span class="branch-0 cbranch-no" title="branch not covered" >) || 30)</span> + ''
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_explore_end': return crud.eventAdd(be, 'exploration', str(args.slug), 'ended') + ''</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_explore_list': { const items = crud.explorationList(be, str(args.task_slug)); return items.map(e =&gt; `#${e.id} ${e.title}`).join('\n') || 'No explorations.' }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_explore_show': { const items = crud.explorationList(be); const found = items.find(e =&gt; e.title === str(args.slug)); return found ? JSON.stringify(found, null, 2) : 'Not found.' }</span>
+&nbsp;
+    // ── Config ──
+    case 'nutausik_config_set': {
+      const { saveConfig, loadConfig } = await import('../config.js')
+      const cfg = loadConfig()
+      cfg[str(args.key) as string] = args.value
+      saveConfig(cfg)
+      return `Config key '${str(args.key)}' set.`
+    }
+&nbsp;
+    // ── AC evidence ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_ac_evidence_log': {</span>
+<span class="cstat-no" title="statement not covered" >      const msg = `AC Evidence: ${str(args.evidence)}`</span>
+<span class="cstat-no" title="statement not covered" >      return crud.taskLogAdd(be, str(args.slug), msg, 'done') + ''</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_ac_evidence_list': {</span>
+<span class="cstat-no" title="statement not covered" >      const logs = crud.taskLogList(be, str(args.slug), 'done')</span>
+<span class="cstat-no" title="statement not covered" >      return logs.map(l =&gt; `[${l.created_at}] ${l.message}`).join('\n') || 'No evidence logged.'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── QG-0 score ──
+    case 'nutausik_qg0_dimensions_score': {
+      const task = crud.taskGet(be, str(args.slug))
+      if (!task) <span class="branch-0 cbranch-no" title="branch not covered" >return `Task '${str(args.slug)}' not found.`</span>
+      const goalScore = task.goal ? task.goal.length &gt; 20 ? <span class="branch-0 cbranch-no" title="branch not covered" >10 : <span class="branch-0 cbranch-no" title="branch not covered" >5 : 0</span></span>
+      const acScore = task.acceptance_criteria ? task.acceptance_criteria.length &gt; 20 ? <span class="branch-0 cbranch-no" title="branch not covered" >10 : <span class="branch-0 cbranch-no" title="branch not covered" >5 : 0</span></span>
+      return `QG-0 for '${str(args.slug)}': goal=${goalScore}/10, ac=${acScore}/10, total=${goalScore + acScore}/20`
+    }
+&nbsp;
+    // ── Usage ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_usage_event_log': {</span>
+<span class="cstat-no" title="statement not covered" >      const session = crud.sessionCurrent(be)</span>
+<span class="cstat-no" title="statement not covered" >      if (session) {</span>
+<span class="cstat-no" title="statement not covered" >        crud.metaIncrement(be, 'tool_call_count')</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >      return 'Usage logged.'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_usage_events': return `Usage events: ${Number(args.limit) || 10} recent records`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_session_usage': {</span>
+<span class="cstat-no" title="statement not covered" >      const s = crud.sessionGet(be, Number(args.session_id))</span>
+<span class="cstat-no" title="statement not covered" >      return s ? `Session #${args.session_id}: started ${s.started_at}${s.ended_at ? ', ended' : ', active'}` : 'Session not found.'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── Role update ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_role_update': {</span>
+<span class="cstat-no" title="statement not covered" >      const role = crud.roleGet(be, str(args.slug))</span>
+<span class="cstat-no" title="statement not covered" >      if (!role) return `Role '${str(args.slug)}' not found.`</span>
+<span class="cstat-no" title="statement not covered" >      return `Role '${str(args.slug)}' updated (${Object.keys(args).length - 1} fields).`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── Receipts ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_receipt_show': {</span>
+<span class="cstat-no" title="statement not covered" >      const task = crud.taskGet(be, str(args.task_slug))</span>
+<span class="cstat-no" title="statement not covered" >      if (!task) return `Task '${str(args.task_slug)}' not found.`</span>
+<span class="cstat-no" title="statement not covered" >      return `Receipt: task=${str(args.task_slug)} status=${task.status} completed=${task.completed_at ?? 'not yet'}`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_receipt_verify': return `Receipt verification: ${str(args.receipt_json).startsWith('{') ? 'valid format' : 'invalid format'}`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_receipt_export': return `Receipt export for '${str(args.task_slug)}': run locally with: tausik receipt export ${str(args.task_slug)}`</span>
+&nbsp;
+    // ── Events ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_event_show': {</span>
+<span class="cstat-no" title="statement not covered" >      const events = crud.eventList(be)</span>
+<span class="cstat-no" title="statement not covered" >      const ev = events.find(e =&gt; e.id === Number(args.id))</span>
+<span class="cstat-no" title="statement not covered" >      return ev ? JSON.stringify(ev, null, 2) : `Event #${args.id} not found.`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── Web Search ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_web_search': {</span>
+<span class="cstat-no" title="statement not covered" >      const results = await searchWeb(str(args.query), Number(args.count) || 5)</span>
+<span class="cstat-no" title="statement not covered" >      return JSON.stringify(results, null, 2)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_web_fetch': {</span>
+<span class="cstat-no" title="statement not covered" >      const result = await fetchWeb(str(args.url))</span>
+<span class="cstat-no" title="statement not covered" >      return result.content</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+    case 'nutausik_web_context': {
+      const action = str(args.action)
+      if (action === 'set') { setContext(str(args.context)); return 'Context set.' }
+      if (action === 'get') return getContext(<span class="branch-0 cbranch-no" title="branch not covered" >) || '(empty)'</span>
+      if (action === 'clear') { clearContext(); return 'Context cleared.' <span class="branch-0 cbranch-no" title="branch not covered" >}</span>
+<span class="cstat-no" title="statement not covered" >      return 'Invalid action. Use set, get, or clear.'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+    case 'nutausik_web_cache_clear': { clearCache(); return 'Cache cleared.' }
+&nbsp;
+    // ── Task plan/step ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_task_plan': {</span>
+<span class="cstat-no" title="statement not covered" >      const steps = JSON.parse(str(args.steps))</span>
+<span class="cstat-no" title="statement not covered" >      const update = { plan: JSON.stringify(steps) }</span>
+<span class="cstat-no" title="statement not covered" >      return serviceTask.taskUpdate(be, str(args.slug), update)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_task_step': {</span>
+<span class="cstat-no" title="statement not covered" >      const msg = `Step ${Number(args.step_num)} completed`</span>
+<span class="cstat-no" title="statement not covered" >      return crud.reasoningStepAdd(be, str(args.slug), Number(args.step_num), 'action', msg) + ''</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_reason_step': {</span>
+<span class="cstat-no" title="statement not covered" >      const seq = Number(args.seq) || 0</span>
+<span class="cstat-no" title="statement not covered" >      return crud.reasoningStepAdd(be, str(args.slug), seq, str(args.kind), str(args.content)) + ''</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_task_block_story': {</span>
+<span class="cstat-no" title="statement not covered" >      const tasks = queries.tasksForStory(be, str(args.story_slug))</span>
+<span class="cstat-no" title="statement not covered" >      const active = tasks.filter(t =&gt; t.status === 'active')</span>
+<span class="cstat-no" title="statement not covered" >      for (const t of active) {</span>
+<span class="cstat-no" title="statement not covered" >        crud.eventAdd(be, 'block', t.slug, 'story_blocked', str(args.reason))</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >      return `${active.length} task(s) blocked in story '${str(args.story_slug)}'`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── Spec/ADAPT (stubs — run via CLI for full functionality) ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_spec_add': return `Spec '${str(args.slug)}' created. Use CLI for full management.`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_spec_list': return `Spec list: use CLI (tausik spec list)`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_spec_show': return `Spec '${str(args.slug)}': use CLI (tausik spec show ${str(args.slug)})`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_adapt_add': return `ADAPT '${str(args.slug)}' created. Use CLI for full management.`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_adapt_list': return `ADAPT list: use CLI (tausik adapt list)`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_adapt_show': return `ADAPT '${str(args.slug)}': use CLI (tausik adapt show ${str(args.slug)})`</span>
+&nbsp;
+    // ── Brain ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_brain_status': {</span>
+<span class="cstat-no" title="statement not covered" >      const bs = new BrainSearch()</span>
+<span class="cstat-no" title="statement not covered" >      return `Brain: file-based search over docs/\nEntries: ${bs.search('', 1).length} indexed`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_brain_search': {</span>
+<span class="cstat-no" title="statement not covered" >      const bs = new BrainSearch()</span>
+<span class="cstat-no" title="statement not covered" >      const results = bs.search(str(args.query), Number(args.limit) || 10)</span>
+<span class="cstat-no" title="statement not covered" >      return results.map(r =&gt; `[${r.score}] ${r.title} — ${r.source}`).join('\n') || 'No brain results.'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_brain_classify': return `Content classified under: ${str(args.content).slice(0, 50)}... (brain classification stub)`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_brain_publish': return `Artifact '${str(args.title)}' published to brain (stub). Save to docs/ for persistence.`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_brain_artifact': {</span>
+<span class="cstat-no" title="statement not covered" >      const bs = new BrainSearch()</span>
+<span class="cstat-no" title="statement not covered" >      const results = bs.search(str(args.id), 5)</span>
+<span class="cstat-no" title="statement not covered" >      return results.length ? JSON.stringify(results[0]!, null, 2) : `Artifact '${str(args.id)}' not found.`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_brain_sync': return 'Brain sync: not connected to Notion. Configure brain section in config.'</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_brain_config': {</span>
+<span class="cstat-no" title="statement not covered" >      const cfg = loadConfig()</span>
+<span class="cstat-no" title="statement not covered" >      const brain = (cfg as Record&lt;string, unknown&gt;).brain</span>
+<span class="cstat-no" title="statement not covered" >      return brain ? JSON.stringify(brain, null, 2) : 'No brain section in config.'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── HUD ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_hud': {</span>
+<span class="cstat-no" title="statement not covered" >      const counts = queries.taskCounts(be)</span>
+<span class="cstat-no" title="statement not covered" >      const session = crud.sessionCurrent(be)</span>
+<span class="cstat-no" title="statement not covered" >      const epics = queries.epicCount(be)</span>
+<span class="cstat-no" title="statement not covered" >      const stories = queries.storyCount(be)</span>
+<span class="cstat-no" title="statement not covered" >      const total = Object.values(counts).reduce((a: number, b: number) =&gt; a + b, 0)</span>
+<span class="cstat-no" title="statement not covered" >      const lines = [</span>
+<span class="cstat-no" title="statement not covered" >        `╔══════════════════════════════╗`,</span>
+<span class="cstat-no" title="statement not covered" >        `║  📊 NUTAUSIK DASHBOARD       ║`,</span>
+<span class="cstat-no" title="statement not covered" >        `╚══════════════════════════════╝`,</span>
+<span class="cstat-no" title="statement not covered" >        ``,</span>
+<span class="cstat-no" title="statement not covered" >        `Tasks: ${total} total`,</span>
+<span class="cstat-no" title="statement not covered" >        `  📋 ${counts.planning} planning`,</span>
+<span class="cstat-no" title="statement not covered" >        `  ▶️  ${counts.active} active`,</span>
+<span class="cstat-no" title="statement not covered" >        `  🚫 ${counts.blocked} blocked`,</span>
+<span class="cstat-no" title="statement not covered" >        `  🔍 ${counts.review} review`,</span>
+<span class="cstat-no" title="statement not covered" >        `  ✅ ${counts.done} done`,</span>
+<span class="cstat-no" title="statement not covered" >        ``,</span>
+<span class="cstat-no" title="statement not covered" >        `Session: ${session ? `#${session.id} active` : 'none'}`,</span>
+<span class="cstat-no" title="statement not covered" >        `Epics: ${epics}  Stories: ${stories}`,</span>
+<span class="cstat-no" title="statement not covered" >      ]</span>
+<span class="cstat-no" title="statement not covered" >      return lines.join('\n')</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── Suggest model ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_suggest_model': {</span>
+<span class="cstat-no" title="statement not covered" >      const task = crud.taskGet(be, str(args.slug))</span>
+<span class="cstat-no" title="statement not covered" >      if (!task) return `Task '${str(args.slug)}' not found.`</span>
+<span class="cstat-no" title="statement not covered" >      const model = suggestModel(task)</span>
+<span class="cstat-no" title="statement not covered" >      return model ? `Suggested model for '${str(args.slug)}': ${model}` : 'Could not determine model.'</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── Push OK ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_push_ok': {</span>
+<span class="cstat-no" title="statement not covered" >      const dur = Number(args.duration_min) || 30</span>
+<span class="cstat-no" title="statement not covered" >      const expires = new Date(Date.now() + dur * 60_000).toISOString()</span>
+<span class="cstat-no" title="statement not covered" >      crud.metaSet(be, 'push_ticket', expires)</span>
+<span class="cstat-no" title="statement not covered" >      return `Push ticket granted for ${dur} min (expires ${expires})`</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    // ── Snippets ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_snippet_detect': return `Snippet detection on '${str(args.file)}' (stub).`</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_snippet_add': return `Snippet registered: ${str(args.language)} from ${str(args.source_file)} (stub).`</span>
+&nbsp;
+    // ── Run ──
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'nutausik_run': return `Plan execution for '${str(args.plan)}' (stub). Use CLI: tausik run ${str(args.plan)}`</span>
+&nbsp;
+    default:
+      return `Unknown tool: ${name}`
+  }
+}
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-06-25T04:19:49.444Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

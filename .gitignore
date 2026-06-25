@@ -90,3 +90,7 @@ docs/audit/
 site/_archive/
 tausik_systemwide_analysis.md
 docs/research/_internal/
+packages/nutausik/.nutausik/
+packages/nutausik/coverage/
+packages/nutausik/dist/
+packages/nutausik/node_modules/

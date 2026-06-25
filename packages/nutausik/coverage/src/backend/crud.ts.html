@@ -1,0 +1,1057 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/backend/crud.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/backend</a> crud.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">89.75% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>219/244</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">84.53% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>82/97</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">86.66% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>39/45</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">89.75% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>219/244</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">77x</span>
+<span class="cline-any cline-yes">77x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { SQLiteBackend } from './database.js'
+import { utcnowIso } from '../utils/helpers.js'
+import type {
+  EpicRow, StoryRow, TaskRow, SessionRow, DecisionRow, MemoryRow,
+  ExplorationRow, EventRow, RoleRow, TaskLogRow,
+  VerificationRunRow,
+} from '../types/index.js'
+&nbsp;
+// ── Meta ──────────────────────────────────────────────────────────────
+&nbsp;
+export function metaGet(be: SQLiteBackend, key: string): string | undefined {
+  const row = be.db.prepare('SELECT value FROM meta WHERE key = ?').get(key) as { value: string } | undefined
+  return row?.value
+}
+&nbsp;
+export function metaSet(be: SQLiteBackend, key: string, value: string): void {
+  be.db.prepare('INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)').run(key, value)
+}
+&nbsp;
+export function metaIncrement(be: SQLiteBackend, key: string): void {
+  be.db.prepare(`INSERT INTO meta (key, value) VALUES (?, 1)
+    ON CONFLICT(key) DO UPDATE SET value = CAST(CAST(value AS INTEGER) + 1 AS TEXT)`).run(key)
+}
+&nbsp;
+// ── Epics ─────────────────────────────────────────────────────────────
+&nbsp;
+export function epicAdd(be: SQLiteBackend, slug: string, title: string, description?: string | null, status?: string): string {
+  const now = utcnowIso()
+  be.db.prepare('INSERT INTO epics (slug, title, status, description, created_at) VALUES (?, ?, ?, ?, ?)').run(slug, title, status ?? 'active', description ?? null, now)
+  return `Epic '${slug}' created.`
+}
+&nbsp;
+export function epicGet(be: SQLiteBackend, slug: string): EpicRow | undefined {
+  return be.db.prepare('SELECT * FROM epics WHERE slug = ?').get(slug) as EpicRow | undefined
+}
+&nbsp;
+export function epicList(be: SQLiteBackend, status?: string): EpicRow[] {
+  if (status) return be.db.prepare('SELECT * FROM epics WHERE status = ? ORDER BY created_at DESC').all(status) as EpicRow[]
+  return be.db.prepare('SELECT * FROM epics ORDER BY created_at DESC').all() as EpicRow[]
+}
+&nbsp;
+export function epicUpdate(be: SQLiteBackend, slug: string, fields: Record&lt;string, unknown&gt;): string {
+  const allowed = new Set(['title', 'status', 'description'])
+  const sets: string[] = []
+  const vals: unknown[] = []
+  for (const [k, v] of Object.entries(fields)) {
+    if (allowed.has(k)) { sets.push(`${k} = ?`); vals.push(v) }
+  }
+  if (!sets.length) <span class="branch-0 cbranch-no" title="branch not covered" >return 'Nothing to update.'</span>
+  vals.push(slug)
+  be.db.prepare(`UPDATE epics SET ${sets.join(', ')} WHERE slug = ?`).run(...vals)
+  return `Epic '${slug}' updated.`
+}
+&nbsp;
+export function epicDelete(be: SQLiteBackend, slug: string): string {
+  be.db.prepare('DELETE FROM epics WHERE slug = ?').run(slug)
+  return `Epic '${slug}' deleted.`
+}
+&nbsp;
+// ── Stories ───────────────────────────────────────────────────────────
+&nbsp;
+export function storyAdd(be: SQLiteBackend, epicSlug: string, slug: string, title: string, description?: string | null): string {
+  const epic = epicGet(be, epicSlug)
+  if (!epic) <span class="branch-0 cbranch-no" title="branch not covered" >throw new Error(`Epic '${epicSlug}' not found`)</span>
+  const now = utcnowIso()
+  be.db.prepare('INSERT INTO stories (epic_id, slug, title, description, created_at) VALUES (?, ?, ?, ?, ?)').run(epic.id, slug, title, description ?? null, now)
+  return `Story '${slug}' created in epic '${epicSlug}'.`
+}
+&nbsp;
+export function storyGet(be: SQLiteBackend, slug: string): StoryRow | undefined {
+  return be.db.prepare('SELECT * FROM stories WHERE slug = ?').get(slug) as StoryRow | undefined
+}
+&nbsp;
+export function storyList(be: SQLiteBackend, options?: { epic?: string; status?: string }): StoryRow[] {
+  const conditions: string[] = []
+  const vals: unknown[] = []
+  if (options?.epic) {
+    const epic = epicGet(be, options.epic)
+    if (epic) { conditions.push('epic_id = ?'); vals.push(epic.id) }
+  }
+  if (options?.status) <span class="branch-0 cbranch-no" title="branch not covered" >{ conditions.push('status = ?'); vals.push(options.status) }</span>
+  const where = conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''
+  return be.db.prepare(`SELECT * FROM stories ${where} ORDER BY created_at DESC`).all(...vals) as StoryRow[]
+}
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function storyUpdate(be: SQLiteBackend, slug: string, fields: Record&lt;string, unknown&gt;): string {</span>
+<span class="cstat-no" title="statement not covered" >  const allowed = new Set(['title', 'status', 'description'])</span>
+<span class="cstat-no" title="statement not covered" >  const sets: string[] = []</span>
+<span class="cstat-no" title="statement not covered" >  const vals: unknown[] = []</span>
+<span class="cstat-no" title="statement not covered" >  for (const [k, v] of Object.entries(fields)) {</span>
+<span class="cstat-no" title="statement not covered" >    if (allowed.has(k)) { sets.push(`${k} = ?`); vals.push(v) }</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  if (!sets.length) return 'Nothing to update.'</span>
+<span class="cstat-no" title="statement not covered" >  vals.push(slug)</span>
+<span class="cstat-no" title="statement not covered" >  be.db.prepare(`UPDATE stories SET ${sets.join(', ')} WHERE slug = ?`).run(...vals)</span>
+<span class="cstat-no" title="statement not covered" >  return `Story '${slug}' updated.`</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function storyDelete(be: SQLiteBackend, slug: string): string {</span>
+<span class="cstat-no" title="statement not covered" >  be.db.prepare('DELETE FROM stories WHERE slug = ?').run(slug)</span>
+<span class="cstat-no" title="statement not covered" >  return `Story '${slug}' deleted.`</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+// ── Tasks ─────────────────────────────────────────────────────────────
+&nbsp;
+const TASK_INSERT_COLS = ['slug', 'story_id', 'title', 'status', 'stack', 'complexity', 'role', 'goal', 'acceptance_criteria', 'scope', 'scope_exclude', 'scope_paths', 'scope_tools', 'tier', 'call_budget', 'cost_budget_usd', 'token_budget', 'defect_of', 'relevant_files', 'created_at', 'updated_at']
+&nbsp;
+export function taskAdd(be: SQLiteBackend, slug: string, title: string, fields?: Partial&lt;Pick&lt;TaskRow, 'story_id' | 'stack' | 'complexity' | 'role' | 'goal' | 'acceptance_criteria' | 'tier' | 'call_budget' | 'defect_of' | 'scope' | 'scope_exclude'&gt;&gt;): void {
+  const now = utcnowIso()
+  const f = fields ?? {}
+  const vals: unknown[] = [slug, f.story_id ?? null, title, 'planning', f.stack ?? null, f.complexity ?? null, f.role ?? null, f.goal ?? null, f.acceptance_criteria ?? null, f.scope ?? null, f.scope_exclude ?? null, null, null, f.tier ?? null, f.call_budget ?? null, null, null, f.defect_of ?? null, null, now, now]
+  be.db.prepare(`INSERT INTO tasks (${TASK_INSERT_COLS.join(',')}) VALUES (${TASK_INSERT_COLS.map(() =&gt; '?').join(',')})`).run(...vals)
+}
+&nbsp;
+export function taskGet(be: SQLiteBackend, slug: string): TaskRow | undefined {
+  return be.db.prepare('SELECT * FROM tasks WHERE slug = ?').get(slug) as TaskRow | undefined
+}
+&nbsp;
+const TASK_UPDATE_FIELDS = new Set(['title', 'status', 'stack', 'complexity', 'role', 'score', 'goal', 'plan', 'notes', 'acceptance_criteria', 'scope', 'scope_exclude', 'rollback_plan', 'scope_paths', 'scope_tools', 'risk_score', 'risk_json', 'relevant_files', 'started_at', 'completed_at', 'blocked_at', 'attempts', 'claimed_by', 'defect_of', 'call_budget', 'call_actual', 'cost_budget_usd', 'cost_actual_usd', 'token_budget', 'tokens_actual', 'tier', 'story_id', 'started_model_id', 'started_model_version', 'done_model_id', 'done_model_version', 'model_mismatch'])
+&nbsp;
+export function taskUpdate(be: SQLiteBackend, slug: string, fields: Partial&lt;TaskRow&gt;): void {
+  const sets: string[] = []
+  const vals: unknown[] = []
+  for (const [k, v] of Object.entries(fields)) {
+    if (TASK_UPDATE_FIELDS.has(k)) { sets.push(`${k} = ?`); vals.push(v) }
+  }
+  if (!sets.length) <span class="branch-0 cbranch-no" title="branch not covered" >return</span>
+  sets.push('updated_at = ?')
+  vals.push(utcnowIso())
+  vals.push(slug)
+  be.db.prepare(`UPDATE tasks SET ${sets.join(', ')} WHERE slug = ?`).run(...vals)
+}
+&nbsp;
+export function taskList(be: SQLiteBackend, options?: { status?: string; story?: string; epic?: string; role?: string; stack?: string }): TaskRow[] {
+  const conditions: string[] = ['archived_at IS NULL']
+  const vals: unknown[] = []
+  if (options?.status) {
+    const statuses = options.status.split(',').map(s =&gt; s.trim())
+    conditions.push(`status IN (${statuses.map(() =&gt; '?').join(',')})`)
+    vals.push(...statuses)
+  }
+  if (options?.story) <span class="branch-0 cbranch-no" title="branch not covered" >{ conditions.push('story_id = (SELECT id FROM stories WHERE slug = ?)'); vals.push(options.story) }</span>
+  if (options?.epic) <span class="branch-0 cbranch-no" title="branch not covered" >{ conditions.push('story_id IN (SELECT id FROM stories WHERE epic_id = (SELECT id FROM epics WHERE slug = ?))'); vals.push(options.epic) }</span>
+  if (options?.role) <span class="branch-0 cbranch-no" title="branch not covered" >{ conditions.push('role = ?'); vals.push(options.role) }</span>
+  if (options?.stack) <span class="branch-0 cbranch-no" title="branch not covered" >{ conditions.push('stack = ?'); vals.push(options.stack) }</span>
+  return be.db.prepare(`SELECT * FROM tasks WHERE ${conditions.join(' AND ')} ORDER BY created_at DESC`).all(...vals) as TaskRow[]
+}
+&nbsp;
+export function taskDelete(be: SQLiteBackend, slug: string): void {
+  be.db.prepare('DELETE FROM tasks WHERE slug = ?').run(slug)
+}
+&nbsp;
+export function taskNext(be: SQLiteBackend, agentId?: string): TaskRow | undefined {
+  if (agentId) <span class="branch-0 cbranch-no" title="branch not covered" >return be.db.prepare("SELECT * FROM tasks WHERE status = 'planning' AND (claimed_by IS NULL OR claimed_by = ?) ORDER BY score DESC NULLS LAST, created_at ASC LIMIT 1").get(agentId) as TaskRow | undefined</span>
+  return be.db.prepare("SELECT * FROM tasks WHERE status = 'planning' ORDER BY score DESC NULLS LAST, created_at ASC LIMIT 1").get() as TaskRow | undefined
+}
+&nbsp;
+// ── Sessions ──────────────────────────────────────────────────────────
+&nbsp;
+export function sessionStart(be: SQLiteBackend): number {
+  const now = utcnowIso()
+  be.db.prepare('UPDATE sessions SET ended_at = ? WHERE ended_at IS NULL').run(now)
+  const result = be.db.prepare('INSERT INTO sessions (started_at) VALUES (?)').run(now)
+  return Number(result.lastInsertRowid)
+}
+&nbsp;
+export function sessionEnd(be: SQLiteBackend): void {
+  const now = utcnowIso()
+  be.db.prepare('UPDATE sessions SET ended_at = ? WHERE ended_at IS NULL').run(now)
+}
+&nbsp;
+export function sessionCurrent(be: SQLiteBackend): SessionRow | undefined {
+  return be.db.prepare("SELECT * FROM sessions WHERE ended_at IS NULL ORDER BY started_at DESC LIMIT 1").get() as SessionRow | undefined
+}
+&nbsp;
+export function sessionList(be: SQLiteBackend, limit = 20): SessionRow[] {
+  return be.db.prepare('SELECT * FROM sessions ORDER BY started_at DESC LIMIT ?').all(limit) as SessionRow[]
+}
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function sessionGet(be: SQLiteBackend, id: number): SessionRow | undefined {</span>
+<span class="cstat-no" title="statement not covered" >  return be.db.prepare('SELECT * FROM sessions WHERE id = ?').get(id) as SessionRow | undefined</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+// ── Decisions ─────────────────────────────────────────────────────────
+&nbsp;
+export function decisionAdd(be: SQLiteBackend, decision: string, taskSlug?: string | null, rationale?: string | null): string {
+  const now = utcnowIso()
+  be.db.prepare('INSERT INTO decisions (decision, task_slug, rationale, created_at) VALUES (?, ?, ?, ?)').run(decision, taskSlug ?? null, <span class="branch-0 cbranch-no" title="branch not covered" >rationale ?? null, n</span>ow)
+  return `Decision recorded: ${decision}`
+}
+&nbsp;
+export function decisionList(be: SQLiteBackend, taskSlug?: string): DecisionRow[] {
+  if (taskSlug) return be.db.prepare('SELECT * FROM decisions WHERE task_slug = ? ORDER BY created_at DESC').all(taskSlug) as DecisionRow[]
+  return be.db.prepare('SELECT * FROM decisions ORDER BY created_at DESC').all() as DecisionRow[]
+}
+&nbsp;
+// ── Memory ────────────────────────────────────────────────────────────
+&nbsp;
+export function memoryAdd(be: SQLiteBackend, type: string, title: string, content: string, tags?: string | null, taskSlug?: string | null): number {
+  const now = utcnowIso()
+  const result = be.db.prepare('INSERT INTO memory (type, title, content, tags, task_slug, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)').run(type, title, content, tags ?? null, taskSlug ?? null, now, now)
+  return Number(result.lastInsertRowid)
+}
+&nbsp;
+export function memoryGet(be: SQLiteBackend, id: number): MemoryRow | undefined {
+  return be.db.prepare('SELECT * FROM memory WHERE id = ?').get(id) as MemoryRow | undefined
+}
+&nbsp;
+export function memoryList(be: SQLiteBackend, options?: { type?: string; taskSlug?: string; archived?: boolean }): MemoryRow[] {
+  const conditions: string[] = []
+  const vals: unknown[] = []
+  if (options?.type) { conditions.push('type = ?'); vals.push(options.type) }
+  if (options?.taskSlug) <span class="branch-0 cbranch-no" title="branch not covered" >{ conditions.push('task_slug = ?'); vals.push(options.taskSlug) }</span>
+  if (!options?.archived) conditions.push('archived_at IS NULL')
+  const where = conditions.length ? 'WHERE ' + conditions.join(' AND '<span class="branch-0 cbranch-no" title="branch not covered" >) : ''</span>
+  return be.db.prepare(`SELECT * FROM memory ${where} ORDER BY created_at DESC`).all(...vals) as MemoryRow[]
+}
+&nbsp;
+export function memoryUpdate(be: SQLiteBackend, id: number, fields: Record&lt;string, unknown&gt;): void {
+  const sets: string[] = []
+  const vals: unknown[] = []
+  const allowed = new Set(['title', 'content', 'tags'])
+  for (const [k, v] of Object.entries(fields)) {
+    if (allowed.has(k)) { sets.push(`${k} = ?`); vals.push(v) }
+  }
+  if (!sets.length) <span class="branch-0 cbranch-no" title="branch not covered" >return</span>
+  sets.push('updated_at = ?')
+  vals.push(utcnowIso())
+  vals.push(id)
+  be.db.prepare(`UPDATE memory SET ${sets.join(', ')} WHERE id = ?`).run(...vals)
+}
+&nbsp;
+export function memoryDelete(be: SQLiteBackend, id: number): void {
+  be.db.prepare('DELETE FROM memory WHERE id = ?').run(id)
+}
+&nbsp;
+// ── Events ────────────────────────────────────────────────────────────
+&nbsp;
+export function eventAdd(be: SQLiteBackend, entityType: string, entityId: string, action: string, details?: string | null, actor?: string | null): number {
+  const now = utcnowIso()
+  const result = be.db.prepare('INSERT INTO events (entity_type, entity_id, action, actor, details, created_at) VALUES (?, ?, ?, ?, ?, ?)').run(entityType, entityId, action, actor ?? null, details ?? null, now)
+  return Number(result.lastInsertRowid)
+}
+&nbsp;
+export function eventList(be: SQLiteBackend, entityType?: string, entityId?: string, limit = 50): EventRow[] {
+  const conditions: string[] = []
+  const vals: unknown[] = []
+  if (entityType) { conditions.push('entity_type = ?'); vals.push(entityType) }
+  if (entityId) { conditions.push('entity_id = ?'); vals.push(entityId) }
+  const where = conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''
+  return be.db.prepare(`SELECT * FROM events ${where} ORDER BY created_at DESC LIMIT ?`).all(...vals, limit) as EventRow[]
+}
+&nbsp;
+// ── Explorations ──────────────────────────────────────────────────────
+&nbsp;
+export function explorationAdd(be: SQLiteBackend, title: string, taskSlug?: string | null, timeLimitMin = 30): number {
+  const now = utcnowIso()
+  const result = be.db.prepare('INSERT INTO explorations (title, task_slug, time_limit_min, started_at, created_at) VALUES (?, ?, ?, ?, ?)').run(title, <span class="branch-0 cbranch-no" title="branch not covered" >taskSlug ?? null, t</span>imeLimitMin, now, now)
+  return Number(result.lastInsertRowid)
+}
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function explorationList(be: SQLiteBackend, taskSlug?: string): ExplorationRow[] {</span>
+<span class="cstat-no" title="statement not covered" >  if (taskSlug) return be.db.prepare('SELECT * FROM explorations WHERE task_slug = ? ORDER BY created_at DESC').all(taskSlug) as ExplorationRow[]</span>
+<span class="cstat-no" title="statement not covered" >  return be.db.prepare('SELECT * FROM explorations ORDER BY created_at DESC').all() as ExplorationRow[]</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+// ── Roles ─────────────────────────────────────────────────────────────
+&nbsp;
+export function roleAdd(be: SQLiteBackend, slug: string, title: string, description?: string | null): string {
+  const now = utcnowIso()
+  be.db.prepare('INSERT INTO roles (slug, title, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?)').run(slug, title, <span class="branch-0 cbranch-no" title="branch not covered" >description ?? null, n</span>ow, now)
+  return `Role '${slug}' created.`
+}
+&nbsp;
+export function roleGet(be: SQLiteBackend, slug: string): RoleRow | undefined {
+  return be.db.prepare('SELECT * FROM roles WHERE slug = ?').get(slug) as RoleRow | undefined
+}
+&nbsp;
+export function roleList(be: SQLiteBackend): RoleRow[] {
+  return be.db.prepare('SELECT * FROM roles ORDER BY slug').all() as RoleRow[]
+}
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function roleDelete(be: SQLiteBackend, slug: string): void {</span>
+<span class="cstat-no" title="statement not covered" >  be.db.prepare('DELETE FROM roles WHERE slug = ?').run(slug)</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+// ── Verification Runs ──────────────────────────────────────────────────
+&nbsp;
+export function verificationRunAdd(be: SQLiteBackend, taskSlug: string | null, scope: string, command: string, exitCode: number, filesHash: string, summary?: string | null, durationMs?: number | null): number {
+  const now = utcnowIso()
+  const result = be.db.prepare('INSERT INTO verification_runs (task_slug, scope, command, exit_code, summary, files_hash, ran_at, duration_ms) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(taskSlug, scope, command, exitCode, summary ?? null, filesHash, now, durationMs ?? null)
+  return Number(result.lastInsertRowid)
+}
+&nbsp;
+export function verificationRunRecent(be: SQLiteBackend, taskSlug: string, filesHash: string, ttlMinutes = 10): VerificationRunRow | undefined {
+  return be.db.prepare(`SELECT * FROM verification_runs WHERE task_slug = ? AND files_hash = ? AND exit_code = 0 AND ran_at &gt;= datetime('now', ?)`).get(taskSlug, filesHash, `-${ttlMinutes} minutes`) as VerificationRunRow | undefined
+}
+&nbsp;
+export function hasRecentVerification(be: SQLiteBackend, taskSlug: string, ttlMinutes = 30): boolean {
+  const row = be.db.prepare(`SELECT 1 FROM verification_runs WHERE task_slug = ? AND exit_code = 0 AND ran_at &gt;= datetime('now', ?)`).get(taskSlug, `-${ttlMinutes} minutes`) as { '1': number } | undefined
+  return !!row
+}
+&nbsp;
+&nbsp;
+// ── Task Logs ─────────────────────────────────────────────────────────
+&nbsp;
+export function taskLogAdd(be: SQLiteBackend, taskSlug: string, message: string, phase?: string | null): number {
+  const now = utcnowIso()
+  const result = be.db.prepare('INSERT INTO task_logs (task_slug, message, phase, created_at) VALUES (?, ?, ?, ?)').run(taskSlug, message, phase ?? null, now)
+  return Number(result.lastInsertRowid)
+}
+&nbsp;
+export function taskLogList(be: SQLiteBackend, taskSlug: string, phase?: string): TaskLogRow[] {
+  if (phase) return be.db.prepare('SELECT * FROM task_logs WHERE task_slug = ? AND phase = ? ORDER BY created_at').all(taskSlug, phase) as TaskLogRow[]
+  return be.db.prepare('SELECT * FROM task_logs WHERE task_slug = ? ORDER BY created_at').all(taskSlug) as TaskLogRow[]
+}
+&nbsp;
+// ── Reasoning Steps ───────────────────────────────────────────────────
+&nbsp;
+export <span class="fstat-no" title="function not covered" >function reasoningStepAdd(be: SQLiteBackend, taskSlug: string, seq: number, kind: string, content: string): number {</span>
+<span class="cstat-no" title="statement not covered" >  const now = utcnowIso()</span>
+<span class="cstat-no" title="statement not covered" >  const result = be.db.prepare('INSERT INTO reasoning_steps (task_slug, seq, kind, content, created_at) VALUES (?, ?, ?, ?, ?)').run(taskSlug, seq, kind, content, now)</span>
+<span class="cstat-no" title="statement not covered" >  return Number(result.lastInsertRowid)</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-06-25T04:19:49.444Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    
