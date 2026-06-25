@@ -94,3 +94,4 @@ packages/nutausik/.nutausik/
 packages/nutausik/coverage/
 packages/nutausik/dist/
 packages/nutausik/node_modules/
+node_modules/.vite/
