@@ -20,9 +20,7 @@ export class SQLiteBackend {
   close(): void {
     try {
       this.db.pragma('wal_checkpoint(TRUNCATE)')
-    } catch {
-      // best-effort
-    }
+    } catch { /* best-effort */ }
     this.db.close()
   }
 
