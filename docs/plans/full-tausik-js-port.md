@@ -196,123 +196,123 @@ Phase 0 (Foundation) ─────────┐
 **Files:** `src/cli/index.ts`, `src/cli/parser.ts`, `src/cli/handlers/*.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-5.1: `tausik init` creates `.tausik/` directory with config.json
-- [ ] AC-5.2: `tausik status` prints task counts, session info, epic/story summary
-- [ ] AC-5.3: `tausik task add <slug> <title>` creates task in planning status
-- [ ] AC-5.4: `tausik task start <slug>` activates task (QG-0 enforced)
-- [ ] AC-5.5: `tausik task done <slug> --ac-verified` closes task (QG-2 enforced)
-- [ ] AC-5.6: `tausik task list [--status active]` filters tasks
-- [ ] AC-5.7: `tausik task show <slug>` prints full task details
-- [ ] AC-5.8: `tausik task update <slug> --goal "..." --acceptance "..."` updates fields
-- [ ] AC-5.9: `tausik task log <slug> "message"` appends journal entry
-- [ ] AC-5.10: `tausik task block/unblock/review/delete <slug>` — all lifecycle transitions
-- [ ] AC-5.11: `tausik task move <slug> <new_story>` moves task between stories
-- [ ] AC-5.12: `tausik task claim <slug> <agent_id>` claims task
-- [ ] AC-5.13: `tausik session start/end/extend/list/current` — session lifecycle
-- [ ] AC-5.14: `tausik epic add/list/show` — epic management
-- [ ] AC-5.15: `tausik story add/list/show` — story management
-- [ ] AC-5.16: `tausik memory add/list/search` — knowledge management
-- [ ] AC-5.17: `tausik verify [--task <slug>] [--full]` — run verification
-- [ ] AC-5.18: `tausik doctor` — 4-group health check
-- [ ] AC-5.19: `tausik metrics` — SENAR KPI report
-- [ ] AC-5.20: All CLI commands return exit code 0 on success, nonzero on error
-- [ ] AC-5.21: CLI help text matches Python version output
+- [x] AC-5.1: `tausik init` creates `.tausik/` directory with config.json
+- [x] AC-5.2: `tausik status` prints task counts, session info, epic/story summary
+- [x] AC-5.3: `tausik task add <slug> <title>` creates task in planning status
+- [x] AC-5.4: `tausik task start <slug>` activates task (QG-0 enforced)
+- [x] AC-5.5: `tausik task done <slug> --ac-verified` closes task (QG-2 enforced)
+- [x] AC-5.6: `tausik task list [--status active]` filters tasks
+- [x] AC-5.7: `tausik task show <slug>` prints full task details
+- [x] AC-5.8: `tausik task update <slug> --goal "..." --acceptance "..."` updates fields
+- [x] AC-5.9: `tausik task log <slug> "message"` appends journal entry
+- [x] AC-5.10: `tausik task block/unblock/review/delete <slug>` — all lifecycle transitions
+- [x] AC-5.11: `tausik task move <slug> <new_story>` moves task between stories
+- [x] AC-5.12: `tausik task claim <slug> <agent_id>` claims task
+- [x] AC-5.13: `tausik session start/end/extend/list/current` — session lifecycle
+- [x] AC-5.14: `tausik epic add/list/show` — epic management
+- [x] AC-5.15: `tausik story add/list/show` — story management
+- [x] AC-5.16: `tausik memory add/list/search` — knowledge management
+- [x] AC-5.17: `tausik verify [--task <slug>] [--full]` — run verification
+- [x] AC-5.18: `tausik doctor` — 4-group health check
+- [x] AC-5.19: `tausik metrics` — SENAR KPI report
+- [x] AC-5.20: All CLI commands return exit code 0 on success, nonzero on error
+- [x] AC-5.21: CLI help text matches Python version output
 
 ### Phase 6: MCP Server — 124 Tools
 **Files:** `src/mcp/index.ts`, `src/mcp/tools.ts`, `src/mcp/tools-extra.ts`, `src/mcp/handlers/*.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-6.1: MCP server starts via stdio transport (`@modelcontextprotocol/sdk`)
-- [ ] AC-6.2: `tools/list` returns 117 project tools + 7 brain tools = 124 total
-- [ ] AC-6.3: Every tool has name matching `tausik_*` prefix from Python version
-- [ ] AC-6.4: Every tool has `inputSchema` with type, properties, required fields
-- [ ] AC-6.5: `tausik_status` returns project status (tasks, session, epics, stories)
-- [ ] AC-6.6: `tausik_task_add/quick/start/done/show/list/update/plan/step/log/logs/block/unblock/review/delete/move/next/claim/unclaim` — all 22 task tools functional
-- [ ] AC-6.7: `tausik_task_done` returns structured JSON with `blocking_failures`, `gates`, `cache_status`
-- [ ] AC-6.8: `tausik_session_start/end/extend/current/list/handoff/last_handoff/open` — all 8 session tools
-- [ ] AC-6.9: `tausik_epic_add/list/show/update/delete` — epic tools
-- [ ] AC-6.10: `tausik_story_add/list/show/update/delete` — story tools
-- [ ] AC-6.11: `tausik_memory_add/search/get/update/delete/list/compact/surface/block` — memory tools
-- [ ] AC-6.12: `tausik_verify` — verify tool with `task_slug`, `relevant_files`, `scope`, `trigger` params
-- [ ] AC-6.13: `tausik_doctor` — health check tool
-- [ ] AC-6.14: `tausik_metrics` — SENAR metrics tool
-- [ ] AC-6.15: `tausik_search` — FTS5 search tool
-- [ ] AC-6.16: `tausik_role_*` — role management tools
-- [ ] AC-6.17: `tausik_skill_*` — skill management tools
-- [ ] AC-6.18: `tausik_stack_*` — stack management tools
-- [ ] AC-6.19: `tausik_explore_*` — exploration tools
-- [ ] AC-6.20: `tausik_health` — health check returns version + DB status
-- [ ] AC-6.21: `tausik_self_check` — MCP server freshness check
-- [ ] AC-6.22: All tool calls return structured text (not exceptions)
-- [ ] AC-6.23: Error responses include `usage:` hint for self-correcting calls
-- [ ] AC-6.24: Integration test with MCP client SDK exercises every tool
+- [x] AC-6.1: MCP server starts via stdio transport (`@modelcontextprotocol/sdk`)
+- [x] AC-6.2: `tools/list` returns 117 project tools + 7 brain tools = 124 total
+- [x] AC-6.3: Every tool has name matching `tausik_*` prefix from Python version
+- [x] AC-6.4: Every tool has `inputSchema` with type, properties, required fields
+- [x] AC-6.5: `tausik_status` returns project status (tasks, session, epics, stories)
+- [x] AC-6.6: `tausik_task_add/quick/start/done/show/list/update/plan/step/log/logs/block/unblock/review/delete/move/next/claim/unclaim` — all 22 task tools functional
+- [x] AC-6.7: `tausik_task_done` returns structured JSON with `blocking_failures`, `gates`, `cache_status`
+- [x] AC-6.8: `tausik_session_start/end/extend/current/list/handoff/last_handoff/open` — all 8 session tools
+- [x] AC-6.9: `tausik_epic_add/list/show/update/delete` — epic tools
+- [x] AC-6.10: `tausik_story_add/list/show/update/delete` — story tools
+- [x] AC-6.11: `tausik_memory_add/search/get/update/delete/list/compact/surface/block` — memory tools
+- [x] AC-6.12: `tausik_verify` — verify tool with `task_slug`, `relevant_files`, `scope`, `trigger` params
+- [x] AC-6.13: `tausik_doctor` — health check tool
+- [x] AC-6.14: `tausik_metrics` — SENAR metrics tool
+- [x] AC-6.15: `tausik_search` — FTS5 search tool
+- [x] AC-6.16: `tausik_role_*` — role management tools
+- [x] AC-6.17: `tausik_skill_*` — skill management tools
+- [x] AC-6.18: `tausik_stack_*` — stack management tools
+- [x] AC-6.19: `tausik_explore_*` — exploration tools
+- [x] AC-6.20: `tausik_health` — health check returns version + DB status
+- [x] AC-6.21: `tausik_self_check` — MCP server freshness check
+- [x] AC-6.22: All tool calls return structured text (not exceptions)
+- [x] AC-6.23: Error responses include `usage:` hint for self-correcting calls
+- [x] AC-6.24: Integration test with MCP client SDK exercises every tool
 
 ### Phase 7: Hooks
 **Files:** `src/hooks/*.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-7.1: `task_gate`: blocks Write/Edit when no active task in DB (exit code 2)
-- [ ] AC-7.2: `task_gate`: skip via `TAUSIK_SKIP_HOOKS=1`
-- [ ] AC-7.3: `task_gate`: `TAUSIK_HOOK_FAIL_SECURE=1` blocks on DB error (fail-closed)
-- [ ] AC-7.4: `bash_firewall`: blocks `rm -rf /`, `DROP TABLE`, `git push --force main`
-- [ ] AC-7.5: `bash_firewall`: word-boundary matching (no false positives on echo/comment strings)
-- [ ] AC-7.6: `git_push_gate`: blocks push to main/master without valid push ticket
-- [ ] AC-7.7: `secret_scan`: detects API keys (`sk-`, `ghp_`, etc.) in staged files
-- [ ] AC-7.8: `scope_write_gate`: blocks file writes outside declared `scope_paths`
-- [ ] AC-7.9: `session_start`: injects project status into AGENTS.md at session start
-- [ ] AC-7.10: `task_call_counter`: warns at 40 tool calls since last checkpoint
-- [ ] AC-7.11: `memory_pretool_block`: blocks Prolific Write/Edit outside scope
-- [ ] AC-7.12: Hooks receive JSON on stdin with `tool_name`, `tool_input`
-- [ ] AC-7.13: All hooks exit 0 (allow) on non-TAUSIK projects
+- [x] AC-7.1: `task_gate`: blocks Write/Edit when no active task in DB (exit code 2)
+- [x] AC-7.2: `task_gate`: skip via `TAUSIK_SKIP_HOOKS=1`
+- [x] AC-7.3: `task_gate`: `TAUSIK_HOOK_FAIL_SECURE=1` blocks on DB error (fail-closed)
+- [x] AC-7.4: `bash_firewall`: blocks `rm -rf /`, `DROP TABLE`, `git push --force main`
+- [x] AC-7.5: `bash_firewall`: word-boundary matching (no false positives on echo/comment strings)
+- [x] AC-7.6: `git_push_gate`: blocks push to main/master without valid push ticket
+- [x] AC-7.7: `secret_scan`: detects API keys (`sk-`, `ghp_`, etc.) in staged files
+- [x] AC-7.8: `scope_write_gate`: blocks file writes outside declared `scope_paths`
+- [x] AC-7.9: `session_start`: injects project status into AGENTS.md at session start
+- [x] AC-7.10: `task_call_counter`: warns at 40 tool calls since last checkpoint
+- [x] AC-7.11: `memory_pretool_block`: blocks Prolific Write/Edit outside scope
+- [x] AC-7.12: Hooks receive JSON on stdin with `tool_name`, `tool_input`
+- [x] AC-7.13: All hooks exit 0 (allow) on non-TAUSIK projects
 
 ### Phase 8: Skills + Stacks + Bootstrap
 **Files:** `src/skills/manager.ts`, `src/stacks/registry.ts`, copied assets
 
 **Acceptance Criteria:**
-- [ ] AC-8.1: `stack_registry.load_all()` reads 25 stack definition JSONs from `stacks/` directory
-- [ ] AC-8.2: `stack_registry.gates_for(name)` returns gates from `stack.json`
-- [ ] AC-8.3: `stack_registry.validate(name)` validates against `_schema.json`
-- [ ] AC-8.4: Stack detection: `detect_stacks(projectDir)` returns stacks matching file signatures
-- [ ] AC-8.5: `skill_manager.install(name)` installs skill from repository
-- [ ] AC-8.6: `skill_manager.uninstall(name)` removes skill
-- [ ] AC-8.7: `skill_manager.list()` returns installed skills
-- [ ] AC-8.8: `skill_manager.info(name)` returns SKILL.md content
-- [ ] AC-8.9: 15 core skill SKILL.md files copied from `harness/skills/` to `packages/tausik/skills/`
-- [ ] AC-8.10: 25 stack definition JSONs copied from root `stacks/` to `packages/tausik/stacks/`
-- [ ] AC-8.11: 5 role markdown files copied from `harness/roles/`
-- [ ] AC-8.12: Bootstrap: `tausik init` creates `.tausik/` with config, DB, keypair
+- [x] AC-8.1: `stack_registry.load_all()` reads 25 stack definition JSONs from `stacks/` directory
+- [x] AC-8.2: `stack_registry.gates_for(name)` returns gates from `stack.json`
+- [x] AC-8.3: `stack_registry.validate(name)` validates against `_schema.json`
+- [x] AC-8.4: Stack detection: `detect_stacks(projectDir)` returns stacks matching file signatures
+- [x] AC-8.5: `skill_manager.install(name)` installs skill from repository
+- [x] AC-8.6: `skill_manager.uninstall(name)` removes skill
+- [x] AC-8.7: `skill_manager.list()` returns installed skills
+- [x] AC-8.8: `skill_manager.info(name)` returns SKILL.md content
+- [x] AC-8.9: 15 core skill SKILL.md files copied from `harness/skills/` to `packages/tausik/skills/`
+- [x] AC-8.10: 25 stack definition JSONs copied from root `stacks/` to `packages/tausik/stacks/`
+- [x] AC-8.11: 5 role markdown files copied from `harness/roles/`
+- [x] AC-8.12: Bootstrap: `tausik init` creates `.tausik/` with config, DB, keypair
 
 ### Phase 9: Brain + Model Routing + Web Search Providers
 **Files:** `src/brain/*.ts`, `src/model/*.ts`, `src/providers/*.ts`
 
 **Acceptance Criteria:**
-- [ ] AC-9.1: Brain DB schema created with correct tables
-- [ ] AC-9.2: Brain init: create/join project brain database
-- [ ] AC-9.3: Brain sync: Notion → SQLite (optional, config-gated)
-- [ ] AC-9.4: Brain search: FTS5 search across brain content
-- [ ] AC-9.5: `model_routing.suggest(task)`: returns recommended model based on complexity, tier, stack
-- [ ] AC-9.6: `model_pinning.start(slug, model)`: records which model started a task
-- [ ] AC-9.7: `model_pinning.done(slug, model)`: records which model completed a task
-- [ ] AC-9.8: DuckDuckGo provider: `tausik_search(query)` returns results (zero API key)
-- [ ] AC-9.9: Provider registry: add providers via config
-- [ ] AC-9.10: `tausik_fetch(url)`: extracts readable content from web pages
-- [ ] AC-9.11: `tausik_context`: conversation context tracker (recent queries + manual context)
-- [ ] AC-9.12: Rate limiter: token-bucket per-IP/per-key throttle
+- [x] AC-9.1: Brain DB schema created with correct tables
+- [x] AC-9.2: Brain init: create/join project brain database
+- [x] AC-9.3: Brain sync: Notion → SQLite (optional, config-gated)
+- [x] AC-9.4: Brain search: FTS5 search across brain content
+- [x] AC-9.5: `model_routing.suggest(task)`: returns recommended model based on complexity, tier, stack
+- [x] AC-9.6: `model_pinning.start(slug, model)`: records which model started a task
+- [x] AC-9.7: `model_pinning.done(slug, model)`: records which model completed a task
+- [x] AC-9.8: DuckDuckGo provider: `tausik_search(query)` returns results (zero API key)
+- [x] AC-9.9: Provider registry: add providers via config
+- [x] AC-9.10: `tausik_fetch(url)`: extracts readable content from web pages
+- [x] AC-9.11: `tausik_context`: conversation context tracker (recent queries + manual context)
+- [x] AC-9.12: Rate limiter: token-bucket per-IP/per-key throttle
 
 ### Phase 10: Risk + RENAR + Audit + Remaining
 **Files:** `src/risk/*.ts`, `src/renar/*.ts`, remaining utilities
 
 **Acceptance Criteria:**
-- [ ] AC-10.1: `risk_compute(task)`: returns risk score 0.0–1.0
-- [ ] AC-10.2: `risk_l3_trigger(task)`: returns true if risk triggers Level 3 review
-- [ ] AC-10.3: `renar_conformance.check()`: runs RENAR conformance scan
-- [ ] AC-10.4: `renar_drift.detect()`: detects drift between artifacts
-- [ ] AC-10.5: `renar_export.export()`: exports artifacts to `renar/` directory
-- [ ] AC-10.6: `plan_parser.parse(markdown)`: extracts tasks from `/run` plan
-- [ ] AC-10.7: `root_cause.analyze(task)`: structured root cause from task log
-- [ ] AC-10.8: `cost_pricing.compute(tokens_in, tokens_out, model)`: cost in USD
-- [ ] AC-10.9: All remaining Python audit scripts ported and tested
-- [ ] AC-10.10: `tsc --noEmit` clean, full `vitest` suite passes
+- [x] AC-10.1: `risk_compute(task)`: returns risk score 0.0–1.0
+- [x] AC-10.2: `risk_l3_trigger(task)`: returns true if risk triggers Level 3 review
+- [x] AC-10.3: `renar_conformance.check()`: runs RENAR conformance scan
+- [x] AC-10.4: `renar_drift.detect()`: detects drift between artifacts
+- [x] AC-10.5: `renar_export.export()`: exports artifacts to `renar/` directory
+- [x] AC-10.6: `plan_parser.parse(markdown)`: extracts tasks from `/run` plan
+- [x] AC-10.7: `root_cause.analyze(task)`: structured root cause from task log
+- [x] AC-10.8: `cost_pricing.compute(tokens_in, tokens_out, model)`: cost in USD
+- [x] AC-10.9: All remaining Python audit scripts ported and tested
+- [x] AC-10.10: `tsc --noEmit` clean, full `vitest` suite passes
 
 ## 7. Testing Strategy
 
