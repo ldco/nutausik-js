@@ -4,9 +4,6 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
-> Russian mirror: [`CHANGELOG.ru.md`](CHANGELOG.ru.md). Both files cover
-> the same releases — keep them in sync when adding a new entry.
-
 ## [Unreleased]
 
 _Nothing yet — next changes land here._
@@ -36,14 +33,7 @@ _Nothing yet — next changes land here._
 - **Cryptographic receipts** — ed25519 signed execution evidence (RFC 8032)
 - **Hard gates** — QG-0 (define before start), QG-2 (prove before close)
 - **480 tests** — unit + integration, 77% coverage
-
-See `docs/en/quickstart.md` and `README.ru.md` for setup instructions.
-
----
-
-## [1.5.6] — 2026-06-19
-
-Fine-tune release from a live Kilo Code + z.ai (GLM) field test. The structural
+ The structural
 root was three drifted IDE lists; they are now two named constants.
 
 ### Fixed
