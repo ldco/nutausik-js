@@ -8,6 +8,10 @@ Full rewrite from Python TAUSIK → TypeScript.
 - `context_inject`, `handoff_save/load`, `coherence_check`, `loop_close`
 - 488 tests, Node.js 26 support
 
+## v0.2.1 🟡 (Documentation)
+- **`write-docs` skill** — loaded by any agent for complex documentation tasks
+- **Code agent discipline** — documentation is part of engineering workflow, not a separate agent
+
 ## v0.3.0 🟡 (Planned)
 - **NoCowboy Integration** — Todo Injection in `session/prompt.ts`, Session Auto-Wiring hooks
 - **Branch per task** — `task_branch`, `task_merge`, `task_diff` tools

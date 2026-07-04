@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+
+### Documented
+- Agent vs Skill distinction — Skills load temporarily, agents run full sessions. Documentation is a skill, not an agent.
 _Nothing yet — next changes land here._
 
 ## [0.2.0] — 2026-07-04 (Session Auto-Wiring)
