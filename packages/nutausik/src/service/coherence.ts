@@ -1,5 +1,6 @@
 import type { SQLiteBackend } from '../backend/database.js'
 import * as crud from '../backend/crud.js'
+import { getActiveTaskPlan } from './context-inject.js'
 
 interface CoherenceResult {
   passed: boolean
@@ -16,7 +17,10 @@ interface CoherenceResult {
  * 3. Plan doesn't conflict with active memory (patterns/gotchas)
  * 4. Task doesn't already exist with similar title
  */
-export function coherenceCheck(be: SQLiteBackend, planSteps: string[], taskSlug?: string): string {
+export function coherenceCheck(be: SQLiteBackend, planStepsArg: string[], taskSlug?: string): string {
+  // Auto-detect active task plan steps when none provided
+  const planSteps = planStepsArg.length > 0 ? planStepsArg : getActiveTaskPlan(be)
+
   const result: CoherenceResult = {
     passed: true,
     warnings: [],

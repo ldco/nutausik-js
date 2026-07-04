@@ -146,10 +146,10 @@ export function main(): void {
   taskCmd.command('done <slug>')
     .description('Complete a task (QG-2 enforced)')
     .option('--ac-verified', 'Acceptance criteria verified')
-    .action((slug, opts) => {
+    .action(async (slug, opts) => {
       const be = openBackend()
       try { 
-        const result = serviceTask.taskDone(be, slug, !!opts.acVerified) as Record<string, unknown>
+        const result = await serviceTask.taskDone(be, slug, !!opts.acVerified)
         const failures = result.blocking_failures as Array<{ gate: string; output: string }> | undefined
         if (failures?.length) {
           for (const f of failures) console.error(`BLOCKED: ${f.gate} — ${f.output}`)

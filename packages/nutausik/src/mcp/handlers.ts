@@ -102,7 +102,8 @@ async function dispatch(name: string, args: Record<string, unknown>, be: SQLiteB
     case 'nutausik_task_add': return serviceTask.taskAdd(be, str(args.slug), str(args.title), taskFields(args))
     case 'nutausik_task_quick': return serviceTask.taskAddQuick(be, str(args.title), str(args.goal), str(args.role), str(args.stack), str(args.acceptance_criteria))
     case 'nutausik_task_start': return serviceTask.taskStart(be, str(args.slug))
-    case 'nutausik_task_done': return JSON.stringify(serviceTask.taskDone(be, str(args.slug), !!args.ac_verified))
+    case 'nutausik_task_done': return JSON.stringify(await serviceTask.taskDone(be, str(args.slug), !!args.ac_verified))
+    case 'nutausik_task_done_with_concerns': return serviceTask.taskDoneWithConcerns(be, str(args.slug), opt(args.concerns) ?? undefined)
     case 'nutausik_task_show': { const t = crud.taskGet(be, str(args.slug)); return t ? JSON.stringify(t, null, 2) : 'Not found' }
     case 'nutausik_task_list': { const tasks = crud.taskList(be, args as { status?: string; story?: string; epic?: string; role?: string; stack?: string }); return tasks.map(t => `${t.slug} ${t.status} ${t.title}`).join('\n') || 'No tasks' }
     case 'nutausik_task_update': return serviceTask.taskUpdate(be, str(args.slug), taskFields(args))

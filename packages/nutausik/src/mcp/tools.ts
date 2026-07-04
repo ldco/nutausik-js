@@ -41,6 +41,10 @@ add('nutausik_task_done', 'Complete a task (QG-2 enforced)', {
   slug: { type: 'string' },
   ac_verified: { type: 'boolean', description: 'Acceptance criteria verified' },
 }, ['slug'])
+add('nutausik_task_done_with_concerns', 'Complete a task with known concerns (escalation status)', {
+  slug: { type: 'string' },
+  concerns: { type: 'string', description: 'Known concerns or reasons for escalation' },
+}, ['slug'])
 add('nutausik_task_show', 'Show task details', { slug: { type: 'string' } }, ['slug'])
 add('nutausik_task_list', 'List tasks', {
   status: { type: 'string' },

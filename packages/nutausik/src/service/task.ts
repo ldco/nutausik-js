@@ -2,13 +2,15 @@ import type { SQLiteBackend } from '../backend/database.js'
 import * as crud from '../backend/crud.js'
 import { ServiceError, utcnowIso, safeSingleLine } from '../utils/helpers.js'
 import { validateSlug, validateTaskAddInputs, validateContent } from './validation.js'
+import { runVerifyForTask } from './verification.js'
 
 const LIFECYCLE_TRANSITIONS: Record<string, string[]> = {
   planning: ['active'],
-  active: ['blocked', 'review', 'done'],
-  blocked: ['active', 'done'],
-  review: ['active', 'done'],
+  active: ['blocked', 'review', 'done', 'done_with_concerns'],
+  blocked: ['active', 'done', 'done_with_concerns'],
+  review: ['active', 'done', 'done_with_concerns'],
   done: [],
+  done_with_concerns: [],
 }
 
 function requireStatusTransition(from: string, to: string): void {
@@ -110,7 +112,7 @@ export function taskStart(be: SQLiteBackend, slug: string): string {
   return `Task '${slug}' started. QG-0 passed (goal + AC present).`
 }
 
-export function taskDone(be: SQLiteBackend, slug: string, acVerified = false): Record<string, unknown> {
+export async function taskDone(be: SQLiteBackend, slug: string, acVerified = false): Promise<Record<string, unknown>> {
   const task = crud.taskGet(be, slug)
   if (!task) throw new ServiceError(`Task '${slug}' not found.`)
 
@@ -120,18 +122,40 @@ export function taskDone(be: SQLiteBackend, slug: string, acVerified = false): R
 
   requireStatusTransition(task.status, 'done')
 
+  // Phase 4: Auto-verification loop
+  // When acVerified is false, auto-run verification if no recent cache hit
+  let verificationResult: { ok: boolean; blocking_failures: Array<{ gate: string; severity: string; files: string[]; output: string }>; warnings: string[]; cache_status: string } | null = null
   if (!acVerified) {
-    // check verification cache for recent run
     if (!crud.hasRecentVerification(be, slug)) {
-      throw new ServiceError(
-        `QG-2 BLOCKED: Task '${slug}' has no recent verification.\n` +
-        `  Run verify (nutausik_verify) before closing.`
-      )
+      // Auto-run verification synchronously (verify pipeline is fast for filesystem checks)
+      try {
+        // Use a minimal verify — check relevant files for the task
+        const raw = task.relevant_files || '[]'
+        let files: string[] = []
+        try { files = JSON.parse(raw); if (!Array.isArray(files)) files = [] } catch { /* ignore */ }
+        verificationResult = await runVerifyForTask(be, slug, files)
+      } catch (e) {
+        verificationResult = {
+          ok: false,
+          blocking_failures: [{ gate: 'auto-verify', severity: 'block', files: [], output: `Auto-verify error: ${e}` }],
+          warnings: [],
+          cache_status: 'disabled',
+        }
+      }
+
+      if (!verificationResult.ok) {
+        const failList = verificationResult.blocking_failures.map(f => `  - ${f.gate}: ${f.output}`).join('\n')
+        throw new ServiceError(
+          `QG-2 BLOCKED: Task '${slug}' verification failed (auto-verify).\n` +
+          `Blocking failures:\n${failList}\n\n` +
+          `Fix the issues or use ac_verified=true to override.`
+        )
+      }
     }
   }
 
-  const blockingFailures: string[] = []
-  const warnings: string[] = []
+  const blockingFailures: string[] = verificationResult?.blocking_failures?.map(f => `${f.gate}: ${f.output}`) ?? []
+  const warnings: string[] = verificationResult?.warnings ?? []
 
   if (!task.acceptance_criteria) warnings.push('Task has no acceptance criteria defined.')
   if (!task.goal) warnings.push('Task has no goal defined.')
@@ -150,13 +174,36 @@ export function taskDone(be: SQLiteBackend, slug: string, acVerified = false): R
     ok: true,
     slug,
     plan_complete: !!task.plan,
-    ac_verified: true,
+    ac_verified: acVerified || !!verificationResult?.ok,
     gates_passed: blockingFailures.length === 0,
     blocking_failures: blockingFailures,
     warnings,
-    cache_status: 'manual',
+    cache_status: verificationResult?.cache_status ?? 'manual',
     evidence_logged: true,
   }
+}
+
+export function taskDoneWithConcerns(be: SQLiteBackend, slug: string, concerns?: string): string {
+  const task = crud.taskGet(be, slug)
+  if (!task) throw new ServiceError(`Task '${slug}' not found.`)
+
+  if (task.status === 'done' || task.status === 'done_with_concerns') {
+    return `Task '${slug}' was already completed.`
+  }
+
+  requireStatusTransition(task.status, 'done_with_concerns')
+
+  crud.taskUpdate(be, slug, {
+    status: 'done_with_concerns',
+    completed_at: utcnowIso(),
+  })
+
+  crud.eventAdd(be, 'task', slug, 'status_changed', JSON.stringify({ from: task.status, to: 'done_with_concerns', concerns }))
+
+  const msg = concerns ? `Task completed with concerns: ${concerns}` : 'Task completed with concerns.'
+  crud.taskLogAdd(be, slug, msg, 'done')
+
+  return `Task '${slug}' completed with concerns.`
 }
 
 export function taskBlock(be: SQLiteBackend, slug: string): string {

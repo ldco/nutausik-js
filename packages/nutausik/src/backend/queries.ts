@@ -8,7 +8,7 @@ export function tasksByStatus(be: SQLiteBackend, status: string): number {
 
 export function taskCounts(be: SQLiteBackend): Record<string, number> {
   const rows = be.db.prepare('SELECT status, COUNT(*) as cnt FROM tasks GROUP BY status').all() as { status: string; cnt: number }[]
-  const counts: Record<string, number> = { planning: 0, active: 0, blocked: 0, review: 0, done: 0 }
+  const counts: Record<string, number> = { planning: 0, active: 0, blocked: 0, review: 0, done: 0, done_with_concerns: 0 }
   for (const r of rows) counts[r.status] = r.cnt
   return counts
 }

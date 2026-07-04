@@ -10,6 +10,7 @@ export const VALID_TASK_STATUSES = [
   'blocked',
   'review',
   'done',
+  'done_with_concerns',
 ] as const
 export type TaskStatus = (typeof VALID_TASK_STATUSES)[number]
 
