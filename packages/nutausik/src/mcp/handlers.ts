@@ -10,6 +10,10 @@ import * as serviceSession from '../service/session.js'
 import * as serviceHierarchy from '../service/hierarchy.js'
 import * as serviceKnowledge from '../service/knowledge.js'
 import * as serviceVerify from '../service/verification.js'
+import * as serviceContextInject from '../service/context-inject.js'
+import * as serviceHandoff from '../service/handoff.js'
+import * as serviceCoherence from '../service/coherence.js'
+import * as serviceLoopClose from '../service/loop-close.js'
 import { projectKeypair } from '../crypto/keys.js'
 import { searchWeb, fetchWeb, getContext, setContext, clearContext, clearCache } from '../providers/web-search.js'
 import { SkillManager } from '../skills/manager.js'
@@ -454,6 +458,29 @@ async function dispatch(name: string, args: Record<string, unknown>, be: SQLiteB
 
     // ── Run ──
     case 'nutausik_run': return `Plan execution for '${str(args.plan)}' (stub). Use CLI: tausik run ${str(args.plan)}`
+
+    // ── v0.2.0: Context Inject ──
+    case 'nutausik_context_inject': return serviceContextInject.contextInject(be)
+
+    // ── v0.2.0: Handoff ──
+    case 'nutausik_handoff_save': return serviceHandoff.handoffSave(be, {
+      session_id: str(args.session_id),
+      task_slug: opt(args.task_slug) ?? undefined,
+      summary: str(args.summary),
+      last_message: opt(args.last_message) ?? undefined,
+      state: (args.state as Record<string, string>) ?? {},
+      created_at: new Date().toISOString(),
+    })
+    case 'nutausik_handoff_load': return serviceHandoff.handoffLoad(be, opt(args.session_id) ?? undefined)
+
+    // ── v0.2.0: Coherence Check ──
+    case 'nutausik_coherence_check': {
+      const steps = Array.isArray(args.steps) ? args.steps.map(String) : []
+      return serviceCoherence.coherenceCheck(be, steps, opt(args.task_slug) ?? undefined)
+    }
+
+    // ── v0.2.0: Loop Close ──
+    case 'nutausik_loop_close': return serviceLoopClose.loopClose(be, str(args.slug))
 
     default:
       return `Unknown tool: ${name}`

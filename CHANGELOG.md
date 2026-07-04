@@ -9,9 +9,22 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+_Nothing yet — next changes land here._
+
+## [0.2.0] — 2026-07-04 (Session Auto-Wiring)
+
+### Added
+- **`context_inject` tool** — generates NUTAUSIK context block for agent prompt injection. Reads active task, recent memory, active decisions, returns formatted `<nutausik_context>` block.
+- **`handoff-save` / `handoff-load` tools** — session handoff persistence via meta table. Supports save by session ID + summary, load by session ID or latest.
+- **`coherence_check` tool** — validates a plan against memory (dead_end conflicts), decisions (ADR contradictions), and existing tasks. Returns PASSED/FAILED with detailed warnings.
+- **`loop_close` tool** — compares plan vs actual for a task, generates UNIFY SUMMARY with planned steps, actual logs, goal, and status.
+- **CLI commands** — `nutausik context-inject`, `handoff-save`, `handoff-load`, `coherence-check`, `loop-close`.
+- **8 integration tests** for all new tools (488 total, 45 files).
+
 ### Fixed
 - **better-sqlite3 updated to 12.11.1** — supports Node.js 26 (NODE_MODULE_VERSION 147)
 - **MCP port config fix** — NUTAUSIK server no longer collides with ncp-validator
+- **vitest testTimeout** — increased to 10s to prevent CI timeouts
 
 ## [0.1.0] — 2026-07-04 (TypeScript Port)
 

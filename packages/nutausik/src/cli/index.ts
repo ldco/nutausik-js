@@ -425,6 +425,76 @@ export function main(): void {
     .command('verify')
     .action(() => console.log('Receipt verify not implemented in CLI. Use MCP.'))
 
+  // ── context_inject ──────────────────────────────────────────────
+  program.command('context-inject')
+    .description('Generate NUTAUSIK context block for agent prompt injection')
+    .action(() => {
+      const be = openBackend()
+      // Dynamic import to avoid circular dependency
+      import('../service/context-inject.js').then((m) => {
+        console.log(m.contextInject(be))
+        be.close()
+      })
+    })
+
+  // ── handoff ────────────────────────────────────────────────────
+  // Separate commands instead of nested subcommands (commander limitation)
+  program.command('handoff-save')
+    .description('Save handoff data for next session')
+    .requiredOption('-s, --session-id <id>', 'Session ID')
+    .option('-t, --task-slug <slug>', 'Task slug')
+    .requiredOption('-m, --summary <text>', 'Session summary')
+    .option('-l, --last-message <text>', 'Last message content')
+    .action((opts) => {
+      const be = openBackend()
+      import('../service/handoff.js').then((m) => {
+        console.log(m.handoffSave(be, {
+          session_id: opts.sessionId,
+          task_slug: opts.taskSlug,
+          summary: opts.summary,
+          last_message: opts.lastMessage,
+          state: {},
+          created_at: new Date().toISOString(),
+        }))
+        be.close()
+      })
+    })
+  program.command('handoff-load')
+    .description('Load handoff data from previous session')
+    .option('-s, --session-id <id>', 'Session ID (optional, loads latest if omitted)')
+    .action((opts) => {
+      const be = openBackend()
+      import('../service/handoff.js').then((m) => {
+        console.log(m.handoffLoad(be, opts.sessionId))
+        be.close()
+      })
+    })
+
+  // ── coherence-check ────────────────────────────────────────────
+  program.command('coherence-check')
+    .description('Validate a plan against memory, decisions, and existing tasks')
+    .requiredOption('--steps <steps>', 'Comma-separated plan steps')
+    .option('-t, --task-slug <slug>', 'Task slug to check for duplicates')
+    .action((opts) => {
+      const be = openBackend()
+      import('../service/coherence.js').then((m) => {
+        console.log(m.coherenceCheck(be, opts.steps.split(',').map((s: string) => s.trim()), opts.taskSlug))
+        be.close()
+      })
+    })
+
+  // ── loop-close ──────────────────────────────────────────────────
+  program.command('loop-close')
+    .description('Compare plan vs actual, generate SUMMARY')
+    .requiredOption('-s, --slug <slug>', 'Task slug')
+    .action((opts) => {
+      const be = openBackend()
+      import('../service/loop-close.js').then((m) => {
+        console.log(m.loopClose(be, opts.slug))
+        be.close()
+      })
+    })
+
   program.parse(process.argv)
 }
 

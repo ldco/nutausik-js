@@ -282,4 +282,24 @@ add('nutausik_run', 'Execute a plan markdown file', {
   plan: { type: 'string', description: 'Path to plan .md file' },
 }, ['plan'])
 
+// ── v0.2.0: Session Auto-Wiring ──────────────────────────────────
+add('nutausik_context_inject', 'Generate NUTAUSIK context block for agent prompt injection', {})
+add('nutausik_handoff_save', 'Save handoff data for the next session', {
+  session_id: { type: 'string', description: 'Session ID' },
+  task_slug: { type: 'string', description: 'Optional task slug' },
+  summary: { type: 'string', description: 'Session summary' },
+  last_message: { type: 'string', description: 'Last message content' },
+  state: { type: 'object', description: 'Additional state key-value pairs' },
+}, ['session_id', 'summary'])
+add('nutausik_handoff_load', 'Load handoff data from previous session', {
+  session_id: { type: 'string', description: 'Optional session ID. Latest if omitted.' },
+})
+add('nutausik_coherence_check', 'Validate a plan against memory, decisions, and existing tasks', {
+  steps: { type: 'array', items: { type: 'string' }, description: 'Plan steps to validate' },
+  task_slug: { type: 'string', description: 'Optional task slug to check for duplicates' },
+}, ['steps'])
+add('nutausik_loop_close', 'Compare plan vs actual, generate SUMMARY', {
+  slug: { type: 'string', description: 'Task slug to close the loop for' },
+}, ['slug'])
+
 export const TOOLS: Tool[] = T

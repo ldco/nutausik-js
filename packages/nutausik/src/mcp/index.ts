@@ -16,7 +16,7 @@ export { toolHandler } from './handlers.js'
 
 export async function startMcpServer(): Promise<void> {
   const server = new Server(
-    { name: 'nutausik', version: '0.1.0' },
+    { name: 'nutausik', version: '0.2.0' },
     { capabilities: { tools: {} } },
   )
 
