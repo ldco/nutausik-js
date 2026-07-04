@@ -55,8 +55,6 @@ export function contextInject(be: SQLiteBackend): string {
     }
   }
 
-  blocks.push('')
-  blocks.push('💡 On session end, call nutausik_memory_add with key learnings (type: pattern/gotcha/convention).')
   blocks.push('</nutausik_context>')
   return blocks.join('\n')
 }
