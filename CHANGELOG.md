@@ -9,7 +9,24 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-_Nothing yet — next changes land here._
+### Fixed
+- **better-sqlite3 updated to 12.11.1** — supports Node.js 26 (NODE_MODULE_VERSION 147)
+- **MCP port config fix** — NUTAUSIK server no longer collides with ncp-validator
+
+## [0.1.0] — 2026-07-04 (TypeScript Port)
+
+### Breaking
+- **Complete TypeScript rewrite** — NUTAUSIK was ported from Python (TAUSIK) to TypeScript
+- **MCP server** — 123 tools via JSON-RPC, STDIO and HTTP transports
+- **CLI** — `nutausik` command with 20+ subcommands (task, session, memory, verify, etc.)
+- **SQLite backend** — better-sqlite3 with FTS5 full-text search, 27 tables
+- **Cryptographic receipts** — ed25519 signed execution evidence (RFC 8032)
+- **Hard gates** — QG-0 (define before start), QG-2 (prove before close)
+- **480 tests** — unit + integration, 77% coverage
+
+See `docs/en/quickstart.md` and `README.ru.md` for setup instructions.
+
+---
 
 ## [1.5.6] — 2026-06-19
 
