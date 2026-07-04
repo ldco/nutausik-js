@@ -1,42 +1,43 @@
-# TODO & Roadmap
+# NUTAUSIK — Roadmap
 
-This file tracks the project direction. The authoritative, fine-grained backlog
-lives in the project database (`tausik roadmap` / `tausik task list`); this file
-is the human-readable map of where TAUSIK is going and why.
+Last updated: 2026-07-04 (v0.2.0 released)
 
-> Released: **v1.5.0** (pre-2.0 hardening — signed verification receipts,
-> SENAR enforcement core, fail-closed gates). See [CHANGELOG](CHANGELOG.md).
+## ✅ Done (TypeScript Port, v0.1.0)
+- Full TypeScript port from Python TAUSIK
+- 123 MCP tools (tasks, sessions, memory, gates, verify, specs, brain, skills, stacks, web, crypto, receipts)
+- SQLite backend with FTS5, 27 tables, ed25519 crypto
+- 480 tests, 77% coverage
+- CLI with 20+ subcommands
+- QG-0 / QG-2 hard gates
 
----
+## ✅ Done (Session Auto-Wiring, v0.2.0)
+- `context_inject` — generates NUTAUSIK context block for agent prompt injection
+- `handoff_save` / `handoff_load` — session handoff persistence
+- `coherence_check` — validates plan against memory/decisions
+- `loop_close` — compares plan vs actual, generates UNIFY SUMMARY
+- CLI commands for all new tools
+- 488 tests, 45 files, 100% pass
+- better-sqlite3 12.11.1 (Node.js 26 support)
 
-## 🎯 2.0 — Global MCP (the major rewrite)
+## 🟡 Next (when NoCowboy is ready)
 
-**Goal:** make TAUSIK a *systemwide* tool, not a per-project git submodule.
-Today every project vendors a `.claude/` copy and the MCP server is pinned to a
-single project at spawn (`--project` + one `os.chdir`). 2.0 turns the engine
-into a standalone, installed-once service that serves **many** projects from one
-daemon. Background analysis: [`tausik_systemwide_analysis.md`](tausik_systemwide_analysis.md).
-Architecture decision: **#94**.
+Item | Priority | What's needed
+---|---|---
+**Todo Injection** (NoCowboy) | 🔴 Critical | Modify `session/prompt.ts` to call `context_inject` MCP tool
+**Session Auto-Wiring** (NoCowboy) | 🔴 Critical | NoCowboy SessionStart → create task, PostToolUse → log, SessionEnd → handoff
+**Coherence Check** (NoCowboy) | 🟡 Medium | SessionStart → run coherence_check, warn on conflicts
+**Handoff Auto-Load** (NoCowboy) | 🟡 Medium | `/resume` → load handoff data, inject into system prompt
 
-The pivot is **spawn-time → request-time resolution**: the server must resolve
-the project root (and its `.tausik/tausik.db`) *per request* via a connection
-pool keyed by project root, instead of being bound to one project for its
-lifetime.
+## ❌ Future Releases
 
-| Task | Pri | What |
-|---|---|---|
-| `gmcp-spike-roots` | P0 | Spike: MCP roots-capability + Claude Code launch model |
-| `gmcp-project-resolver` | P0 | `resolve_project()` — roots → pointer → cwd/env chain |
-| `gmcp-server-multitenant` | P0 | Multi-tenant server: per-request resolve instead of `--project` |
-| `gmcp-packaging` | P0 | Packaging: build-system + entry-points (`tausik` / `tausik-mcp`) |
-| `gmcp-init-lite` | P1 | `tausik init`: only `.tausik/` + user-scope MCP registration |
-| `gmcp-migrate-submodule` | P1 | Migrate existing projects from submodule → global |
-| `gmcp-global-hooks` | P1 | Global hooks served from the installed library |
-| `gmcp-version-skew` | P1 | Version-skew contract: one library, many project DBs |
-| `gmcp-multi-ide` | P2 | Multi-IDE: Cursor/Qwen global registration (or an honest gap) |
-| `gmcp-docs-global` | P2 | Docs EN+RU: install / upgrade / migrate, deprecate the submodule |
-
-Supporting engine work (found during v1.5 hardening):
+Item | Priority | Notes
+---|---|---
+**Branch per task** | 🟡 Medium | `task_branch` / `task_merge` / `task_diff` tools
+**Diff sandbox** | 🟡 Medium | Isolate AI changes until reviewed (Plandex-style)
+**Repo map** | 🟡 Medium | Tree-sitter AST project map (Aider-style)
+**Auto lint/test loop** | 🟢 Low | Auto-verify after each change via `verify` tool
+**Docker sandbox** | 🟢 Low | Isolated execution (OpenHands-style)
+**Plan versioning UI** | 🟢 Low | Visual history of plan changes (Plandex-style)
 
 | Task | What |
 |---|---|
